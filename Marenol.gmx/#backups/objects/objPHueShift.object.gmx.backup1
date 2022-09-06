@@ -1,0 +1,35 @@
+// 2022-08-07 02:16:30
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create
+event_inherited();
+surf=surface_create(800,608);
+
+shader=shHueShift;
+
+t=0;
+intensity=1;
+
+#event destroy
+if(surface_exists(surf)) surface_free(surf);
+
+#event step
+t++;
+
+#event other_room_end
+if(surface_exists(surf)) surface_free(surf);
+
+#event draw_gui
+if(!surface_exists(surf)){
+    surf=surface_create(800,608);
+}
+surface_copy(surf,0,0,application_surface);
+var shaderTimerHandle=shader_get_uniform(shader,"u_time");
+var shaderIntensityHandle=shader_get_uniform(shader,"u_intensity");
+shader_set(shader);
+shader_set_uniform_f(shaderTimerHandle,t/100);
+shader_set_uniform_f(shaderIntensityHandle,intensity);
+draw_surface(surf,0,0);
+shader_reset();

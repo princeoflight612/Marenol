@@ -1,0 +1,62 @@
+//
+// Simple passthrough vertex shader
+//
+attribute vec3 in_Position;                  // (x,y,z)
+//attribute vec3 in_Normal;                  // (x,y,z)     unused in this shader.	
+attribute vec4 in_Colour;                    // (r,g,b,a)
+attribute vec2 in_TextureCoord;              // (u,v)
+
+varying vec2 v_vTexcoord;
+varying vec4 v_vColour;
+
+void main()
+{
+    vec4 object_space_pos = vec4( in_Position.x, in_Position.y, in_Position.z, 1.0);
+    gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
+    
+    v_vColour = in_Colour;
+    v_vTexcoord = in_TextureCoord;
+}
+
+//######################_==_YOYO_SHADER_MARKER_==_######################@~// Hue shift shader
+//
+vec3 hsv2rgb(vec3 c)
+{
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+vec3 rgb2hsv(vec3 c)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+    vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+    float d = q.x - min(q.w, q.y);
+    float e = 1.0e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+varying vec2 v_vTexcoord;
+varying vec4 v_vColour;
+//uniform sampler2D u_texture;
+uniform float time;
+uniform float intensity;
+//uniform float u_offset;
+void main()
+{
+    
+    float u_offset=0.0;
+    //vec3 maskIntensity = vec3(u_intensity*texture2D( u_texture, v_vTexcoord ).w+u_offset+v_vTexcoord.y*0.25,0.,0.);
+    float u_value = sign(v_vTexcoord.x-0.5)*intensity*(0.5 + 0.5 * sin(40.0*(sqrt(abs(v_vTexcoord.x-0.5))-0.5*time)));
+    //vec4 texColour = texture2D( gm_BaseTexture, v_vTexcoord+vec2(0.01*u_value,0.0));
+    
+    vec4 texColour = texture2D( gm_BaseTexture, v_vTexcoord);
+    vec3 texColourHSV = rgb2hsv(texColour.xyz);
+    
+    vec3 maskIntensity = vec3(u_value+u_offset,1.1*u_value,1.0*u_value);
+    
+    vec3 shiftedColour = hsv2rgb(texColourHSV+maskIntensity);
+    
+    //gl_FragColor = v_vColour * texColour;
+    gl_FragColor = v_vColour * vec4(shiftedColour,texColour.w*intensity*abs(u_value));
+}
