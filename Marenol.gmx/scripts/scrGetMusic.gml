@@ -10,6 +10,9 @@ switch (room)                       //determines which song to play
     case rDifficultySelect:               //this room has a play music object in it so it doesnt need to be included in this script
         roomSong = musGuyRock;
         break;                      //make sure to always put a break after setting the song
+    case rPPreAvoidance:
+        roomSong = musCreepyAmbience;
+        break;
     case rPAvoidance1:
     case rPAvoidance2:
     case rPAvoidance3:
