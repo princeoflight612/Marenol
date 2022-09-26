@@ -1,0 +1,12 @@
+// 2022-09-26 03:08:18
+#event properties (no comments/etc. here are saved)
+parent_index = objPBgScreen;
+uses_physics = false;
+
+#event create
+image_blend=c_red;
+t=0;
+
+#event step
+t++;
+image_alpha=0.05+0.05*dcos(t);

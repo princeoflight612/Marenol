@@ -388,6 +388,7 @@
       <objects name="Marenol">
         <object>objects\objSampleAvoidance</object>
         <object>objects\objPBgScreen</object>
+        <object>objects\objPBgScreenIntro</object>
         <object>objects\objPBgGradient</object>
         <object>objects\objPEndingText</object>
         <object>objects\objPBullet</object>
