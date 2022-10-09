@@ -236,6 +236,12 @@
       <script>scripts\instance_rotate_around_point_new.gml</script>
       <script>scripts\instance_change_colour_variable.gml</script>
     </scripts>
+    <scripts name="BetterBlock">
+      <script>scripts\scrIsBetterBlock.gml</script>
+      <script>scripts\scrIsBetterPlatform.gml</script>
+      <script>scripts\scrIsBlock.gml</script>
+      <script>scripts\scrMoveContactObject.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shSepia.shader</shader>
@@ -282,6 +288,7 @@
     </objects>
     <objects name="blocks">
       <object>objects\objBlock</object>
+      <object>objects\objBetterBlock</object>
       <object>objects\objMiniBlock</object>
       <object>objects\objSlipBlock</object>
       <object>objects\objBlockInvis</object>
@@ -303,6 +310,7 @@
       <object>objects\objPlatform</object>
       <object>objects\objMovingPlatform</object>
       <object>objects\objMovingPlatformNoBounce</object>
+      <object>objects\objBetterMovingPlatform</object>
       <object>objects\objBlockRise</object>
       <object>objects\objBlockFall</object>
     </objects>
@@ -421,6 +429,9 @@
         <object>objects\oDelayedExecutionCommand</object>
         <object>objects\oViewScreenShakeCommand</object>
       </objects>
+    </objects>
+    <objects name="BetterBlock">
+      <object>objects\objBetterBlockCtrl</object>
     </objects>
   </objects>
   <rooms name="rooms">
