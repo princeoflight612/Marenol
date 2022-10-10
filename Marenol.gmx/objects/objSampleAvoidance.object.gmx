@@ -2727,18 +2727,33 @@ switch(attack){ //Main attack loop
             
             }
         }
-        
+        if(ct==floor(17*BT)){ //NEW block deletion using BetterBlocks
+            with(objBetterBlock){
+                if(tag==1){
+                    instance_move_to(id,x,y+32*(image_yscale-0.5),floor(8*BT),tween_linear);
+                }
+                instance_change_variable(id,"image_yscale",0.5,floor(8*BT),tween_linear);
+            }
+        }
         if(ct&gt;floor(17*BT)){ //block deletion
             with(objMiniBlock){
                 if(abs((y+16)-304)&lt;(ct-17*BT)/1.3) instance_destroy();
             }
+            if((ct mod 4 == 1) &amp;&amp; (objPlayer.x&gt;256&amp;&amp;objPlayer.x&lt;288||objPlayer.x&gt;512&amp;&amp;objPlayer.y&lt;544)){ //bleed effect
+                with(instance_create(objPlayer.x,objPlayer.y,objPDecayBloodOrb)){
+                    image_xscale=0;
+                    image_yscale=0;
+                    instance_scale(id,1.5,100,tween_sine_inout);
+                }
+            }
         }
+        
         break;
     }
     case marenolAvoidanceAttacks.DECAY_SLICE:
     {
         if(ct==1){ 
-            
+            with(objPDecayBloodOrb) instance_destroy();
             with(oRdrChangeAlphaCommand) instance_destroy();
             with(oRdrFadeCommand) instance_destroy();
             with(objPShaderEffect){ //activate the shader effect

@@ -403,6 +403,7 @@
         <object>objects\objPBulletCurve</object>
         <object>objects\objPTrail</object>
         <object>objects\objPDecayOrb</object>
+        <object>objects\objPDecayBloodOrb</object>
         <object>objects\objPDrawController</object>
         <object>objects\objPColourInvert</object>
         <object>objects\objPUnderwater</object>

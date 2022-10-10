@@ -55,8 +55,6 @@
     <instance objName="objPDrawController" x="64" y="0" name="inst_4FCF6687" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objPlayerStart" x="384" y="384" name="inst_8B315FE4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objPrince_ElishaNoise" x="32" y="0" name="inst_012C265E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="256" y="160" name="inst_C73805B4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="256" y="416" name="inst_C46DD9A2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="288" y="416" name="inst_667799A1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="320" y="416" name="inst_62D55914" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="352" y="416" name="inst_C76151F5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -64,8 +62,6 @@
     <instance objName="objBlock" x="416" y="416" name="inst_4CC04660" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="448" y="416" name="inst_04A15A54" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="480" y="416" name="inst_F2AB60D0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="512" y="416" name="inst_F270F69A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="512" y="160" name="inst_81950F8E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="480" y="160" name="inst_8D16E625" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="448" y="160" name="inst_FB39FA78" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="416" y="160" name="inst_590FFDAB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -76,34 +72,10 @@
     <instance objName="objPBlockDraw" x="96" y="0" name="inst_622F80D3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="-32" y="0" name="inst_A813B954" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="800" y="0" name="inst_14BF56C8" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="192" name="inst_64E50121" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="208" name="inst_1FE6D4A1" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="224" name="inst_9DFB6E5F" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="240" name="inst_5B234EAC" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="256" name="inst_E914D367" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="272" name="inst_2990A8F6" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="288" name="inst_68C4B09B" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="304" name="inst_0DF7070A" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="320" name="inst_12185C13" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="336" name="inst_A2ED0032" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="352" name="inst_76D4BC63" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="368" name="inst_2CF6CFFE" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="384" name="inst_F3230E8B" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="256" y="400" name="inst_1B6D8937" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="192" name="inst_516F345F" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="208" name="inst_EA00AA34" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="224" name="inst_6E109179" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="240" name="inst_A6E65D05" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="256" name="inst_9DFD510B" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="272" name="inst_41FCC311" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="304" name="inst_48931276" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="320" name="inst_9BF38A73" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="336" name="inst_79780EFD" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="352" name="inst_85888711" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="368" name="inst_F91C6237" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="384" name="inst_F4084E8F" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="400" name="inst_86CF602E" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objMiniBlock" x="512" y="288" name="inst_CD77C0A7" locked="0" code="" scaleX="2" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlock" x="256" y="160" name="inst_C4A13A98" locked="0" code="tag=0;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlock" x="256" y="304" name="inst_6C1DAC94" locked="0" code="tag=1;&#xA;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlock" x="512" y="160" name="inst_FF81BF65" locked="0" code="tag=0;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
+    <instance objName="objBetterBlock" x="512" y="304" name="inst_F2D89D23" locked="0" code="tag=1;&#xA;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bgPWhite" x="256" y="352" w="32" h="32" xo="0" yo="32" id="10002514" name="inst_0A33F651" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
