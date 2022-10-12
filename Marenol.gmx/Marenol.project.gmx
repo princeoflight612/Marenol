@@ -252,6 +252,7 @@
     <shader type="GLSLES">shaders\shBloodRed.shader</shader>
     <shader type="GLSLES">shaders\shWormBlood.shader</shader>
     <shader type="GLSLES">shaders\shVignette.shader</shader>
+    <shader type="GLSLES">shaders\shBloodVignette.shader</shader>
     <shader type="GLSLES">shaders\shMarenolDistortion.shader</shader>
     <shader type="GLSLES">shaders\shHueShift.shader</shader>
     <shader type="GLSLES">shaders\shSqrtWave.shader</shader>

@@ -1960,8 +1960,8 @@ switch(attack){ //Main attack loop
         with(objPBullet){
             if(tag==0){
                 if(image_xscale&lt;0.3) killer=false;
-                if(image_xscale==0){
-                    image_alpha=0;
+                if(image_xscale&lt;0.01){
+                    image_alpha=0.1;
                     image_xscale=0;
                     image_yscale=0;
                     tag=1;
@@ -1976,7 +1976,7 @@ switch(attack){ //Main attack loop
             }else if(tag==1){
                 killer=(image_xscale&gt;0.5&amp;&amp;image_alpha&gt;0.5);
                 image_alpha-=0.05;
-                if(image_alpha&lt;=0.05) instance_destroy();
+                if(image_alpha&lt;=0.00) instance_destroy();
             }
         }
         if(ct&gt;floor(2*BT)&amp;&amp;ct&lt;floor(6*BT)){
@@ -2523,6 +2523,11 @@ switch(attack){ //Main attack loop
             room_goto(rPAvoidance7);
         }
         if(ct==2){
+            vignette=instance_create(0,0,objPShaderRectangle);
+            vignette.shader=shBloodVignette;
+            vignette.image_alpha=1;
+            vignette.intensity=1;
+            vignette.image_blend=c_red;
             view_set_scale((11*32)/608);
             //view_scale((9*32)/608,floor(4*BT),tween_sine_out);
             //var obj=instance_create(-32,-32,objPShaderRectangle);
@@ -2619,6 +2624,7 @@ switch(attack){ //Main attack loop
             repeat(32){ //bg effect around the box
                 
             }
+            
             with(objPBullet){ //clock pulsing
                 if(tag==999){
                     image_alpha*=5;
@@ -2627,6 +2633,10 @@ switch(attack){ //Main attack loop
             }
             with(objPShaderEffect){ //distortion shader
                 intensity=0.1;
+                instance_change_variable(id,"intensity",0,floor(2*BT),tween_sine_out);
+            }
+            with(vignette){ //vignette
+                intensity=1;
                 instance_change_variable(id,"intensity",0,floor(2*BT),tween_sine_out);
             }
             if(ct&lt;floor(16*BT)){ //center circles
