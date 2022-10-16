@@ -2803,8 +2803,9 @@ switch(attack){ //Main attack loop
         if(ct==floor(17*BT)){ //NEW block deletion using BetterBlocks
             with(objBetterBlock){
                 if(tag==1){
-                    instance_move_to(id,x,y+32*(image_yscale-0.5),floor(8*BT),tween_linear);
-                }
+                    instance_change_variable(id,"image_yscale",-0.5,floor(8*BT),tween_linear);
+                    //instance_move_to(id,x,y+32*(image_yscale-0.5),floor(8*BT),tween_linear);
+                }else 
                 instance_change_variable(id,"image_yscale",0.5,floor(8*BT),tween_linear);
             }
         }

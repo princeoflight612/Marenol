@@ -100,8 +100,8 @@
 }
 surface_set_target(surf);
 draw_clear_alpha(c_black,0);
-with(objBlock) draw_background_part(bgPWhite,0,32,32,32,x,y);
-with(objBetterBlock) draw_rectangle_colour(x,y,x+32*image_xscale,y+32*image_yscale,c_white,c_white,c_white,c_white,false);
+with(objBlock) if(object_index!=objBetterBlock) draw_background_part(bgPWhite,0,32,32,32,x,y);
+with(objBetterBlock) draw_rectangle_colour(x+32*image_xscale*(image_xscale&lt;0),y+32*image_yscale*(image_yscale&lt;0),x+32*image_xscale*(image_xscale&gt;0),y+32*image_yscale*(image_yscale&gt;0)-1,c_white,c_white,c_white,c_white,false);
 with(objPDecayBloodOrb) draw_self();
 //draw_set_blend_mode(bm_subtract);
 d3d_set_fog(1,c_black,-0.5,0.5);
