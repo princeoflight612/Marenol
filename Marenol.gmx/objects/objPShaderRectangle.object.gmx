@@ -82,7 +82,7 @@ var shaderIntensityHandle=shader_get_uniform(shader,"intensity");
 shader_set(shader);
 shader_set_uniform_f(shaderTimerHandle,t/100);
 shader_set_uniform_f(shaderIntensityHandle,intensity);
-draw_sprite_ext(sprSquareSolid,0,0,0,800/32,608/32,image_angle,image_blend,image_alpha);
+draw_sprite_ext(sprSquareSolid,0,x,y,800*image_xscale/32,608*image_yscale/32,image_angle,image_blend,image_alpha);
 
 shader_reset();
 

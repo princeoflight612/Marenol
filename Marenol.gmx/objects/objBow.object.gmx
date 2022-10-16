@@ -106,7 +106,7 @@ if (instance_exists(objPlayer))
     x = objPlayer.x;
     y = objPlayer.y;
     image_xscale = objPlayer.xScale;
-    image_index=objPlayer.djump;
+    image_index=objPlayer.djump||global.infJump;
     if (global.grav == 1)   //normal
     {
         image_yscale = 1;

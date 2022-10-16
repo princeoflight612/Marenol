@@ -645,7 +645,15 @@ switch(attack){ //Main attack loop
                 room_goto(rPAvoidance3);
             }
         }
-        
+        if(ct==2){
+            //create the bg shader
+            
+            var bg=instance_create(0,0,objPShaderRectangle);
+            bg.shader=shPlasma;
+            bg.intensity=0;
+            bg.image_alpha=0;
+            instance_change_alpha(bg,0.2,100,tween_linear);
+        }
         if(ct==2||ct==floor(BT)||ct==floor(1.5*BT)){
             view_screen_shake(8,5);
             var bx=400;
@@ -927,6 +935,14 @@ switch(attack){ //Main attack loop
     case marenolAvoidanceAttacks.MOOD_BREAKER_SHAPES:
     {
         if(ct==1){
+            with(objPShaderRectangle){
+                y=-(800-608)/2;
+                image_yscale=800/608;
+                shader=shSqrtWaveRadial;
+                intensity=0.5;
+                image_alpha=0.3;
+                image_blend=c_red;
+            }
             side=esign(objPlayer.x-400,1);
             with(objBlock){
                 if(x&gt;=0&amp;&amp;x&lt;800){
@@ -1020,6 +1036,9 @@ switch(attack){ //Main attack loop
                     instance_fade_out(id,floor(BT));
                 }
             }
+            with(objPShaderRectangle){
+                image_blend=c_blue
+            }
         }
         else if(ct==floor(8*BT)){
             with(objPShaderEffect) instance_destroy();
@@ -1070,30 +1089,32 @@ switch(attack){ //Main attack loop
                 var by=608*(i==0);
                 
                 for(var j=0;j&lt;2;j++){
-                    var obj=instance_create(bx,by,objP3DCircle);
-                    obj.numCherries=8;
-                    obj.baseScale=0.5;
-                    obj.dt=0.001;
-                    obj.killer=true;
-                    obj.z=-100;
-                    obj.image_xscale=0;
-                    obj.gravity=0.03;
-                    obj.speed=5;
-                    obj.phaseSpeed=0;
-                    if(i==0){
-                        obj.gravity_direction=-90;
-                        obj.direction=90;
-                    }else{
-                        obj.gravity_direction=90;
-                        obj.direction=-90;
+                    for(var k=0;k&lt;3;k++){
+                        var obj=instance_create(bx,by,objP3DCircle);
+                        obj.numCherries=4+4*(k==0);
+                        obj.baseScale=0.5;
+                        obj.dt=0.001;
+                        obj.killer=true;
+                        obj.z=-100;
+                        obj.image_xscale=0;
+                        obj.gravity=0.03;
+                        obj.speed=5;
+                        obj.phaseSpeed=0;
+                        obj.t+=1/24*k+1/8*j;
+                        if(i==0){
+                            obj.gravity_direction=-90;
+                            obj.direction=90;
+                        }else{
+                            obj.gravity_direction=90;
+                            obj.direction=-90;
+                        }
+                        if(j==1||k!=0) {
+                            instance_fade_out(obj,floor(5*BT));
+                            obj.killer=false;
+                        }
+                        instance_scale(obj,200+100*j,floor(8*BT),tween_sine_inout);
+                        
                     }
-                    if(j==1) {
-                        instance_fade_out(obj,floor(5*BT));
-                        obj.killer=false;
-                    }
-                    instance_scale(obj,200+100*j,floor(8*BT),tween_sine_inout);
-                    
-                
                 }
             }
         }
@@ -1108,6 +1129,12 @@ switch(attack){ //Main attack loop
             with(objPShaderEffect){
                 instance_destroy();
             }
+            var obj=instance_create(0,0,objPShaderRectangle);
+            obj.shader=shSqrtWaveVertical;
+            obj.image_blend=c_green;
+            
+            instance_change_alpha(obj,0.8,30,tween_linear);
+            instance_change_variable(obj,"intensity",0.7,30,tween_linear);
         }
         if(ct mod floor(0.5*BT) == 1){
             repeat(irandom_range(1,2)){
@@ -1134,7 +1161,7 @@ switch(attack){ //Main attack loop
     case marenolAvoidanceAttacks.SAW_BOX_SETUP:
     {
         if(ct==1){ 
-        
+            with(objPShaderRectangle) instance_fade_out(id,30);
         
             //setup the shader effect
             var obj=instance_create(0,0,objPShaderRectangle);
@@ -1260,9 +1287,19 @@ switch(attack){ //Main attack loop
             var obj=instance_create(0,0,objPrince_FadeIn);
             instance_fade_out(obj,floor(2*BT));
             with(objWater2) instance_change_alpha(id,0.5,floor(2*BT),tween_linear);
-            
-            
         }
+        if(ct==2||ct==100||ct==200){
+            //spawn the large background bubble
+            var bs=random_range(1,3);
+            var bubble=instance_create(random(800),608+128*bs,objPCosmetic);
+            bubble.killer=false;
+            bubble.sprite_index=sprBubble;
+            bubble.image_alpha=0.1;
+            bubble.image_xscale=bs;
+            bubble.image_yscale=bs;
+            bubble.vspeed=-image_xscale*2.5;
+            bubble.tag=888;
+        }   
         if(ct mod floor(BT)==1&amp;&amp;ct&lt;floor(15*BT)){
             var a=scrMakeCircleTagDist(random_range(200,600),random_range(100,508),random(360),8,2,0,objPBullet,1);
             for(var i=0;i&lt;array_length_1d(a);i++){
@@ -1289,7 +1326,12 @@ switch(attack){ //Main attack loop
                 if(image_alpha&gt;0.95) killer=true;
             }
         }
-        if(ct==floor(16.5*BT)){
+        with(objPCosmetic){
+            if(tag==888){ //Bubble behaviour
+                x+=random_range(-0.5,0.5);
+            }
+        }
+        if(ct==floor(16.5*BT)){ //colour invert
             with(objPShaderChain) instance_destroy();
             with(objPBullet) {
                 sprite_index=sprPCircleInverted
@@ -1303,7 +1345,7 @@ switch(attack){ //Main attack loop
             with(objPTrail) image_blend=c_red;
             with(objPUnderwater) image_blend=c_red;
             with(objWater2) visible=false;
-            
+            with(objPCosmetic) instance_destroy();
         }
         break;
     }
@@ -1319,7 +1361,10 @@ switch(attack){ //Main attack loop
                 gravity=0.0005*point_distance(400,304,x,y);
                 instance_scale(id,1-point_distance(400,304,x,y)/800,30,tween_sine_out);
             }
-            with(objWater2) visible=true;
+            with(objWater2) {
+                visible=true;
+                image_blend=merge_colour(c_white,c_red,0.5);
+            }
             with(objPShaderEffect) instance_destroy();
             //var obj=instance_create(0,0,objPShaderEffect);
             //obj.shader=shWormBlood;
@@ -1328,6 +1373,24 @@ switch(attack){ //Main attack loop
             obj.shader[1]=shWormBlood;
             obj.intensity[0]=0.01;
             obj.intensity[1]=1.0;
+        }
+        if(ct==2||ct==100||ct==200){
+            //spawn the large background bubbles
+            var bs=random_range(1,3);
+            var bubble=instance_create(random(800),608+128*bs,objPCosmetic);
+            bubble.killer=false;
+            bubble.sprite_index=sprBubble;
+            bubble.image_alpha=0.08;
+            bubble.image_xscale=bs;
+            bubble.image_yscale=bs;
+            bubble.vspeed=-image_xscale*2.5;
+            bubble.tag=888;
+            bubble.image_blend=c_red;
+        } 
+        with(objPCosmetic){
+            if(tag==888){ //Bubble behaviour
+                x+=random_range(-0.5,0.5);
+            }
         }
         if(ct mod floor(4*BT)==floor(2*BT)){
             with(objAvoidanceFlower){
@@ -2925,6 +2988,7 @@ switch(attack){ //Main attack loop
                     if(tag==3){ //activate
                         image_alpha=1;
                         killer=true;
+                        image_index=0;
                         //speed=1;
                         //direction=random(360);
                         //instance_shrink_out(id,50);
@@ -2939,7 +3003,7 @@ switch(attack){ //Main attack loop
             var cystart=304-600*dsin(castart);
             var ca=point_direction(cxstart,cystart,objPlayer.x,objPlayer.y);
             var cscale=random_range(0.5,1);
-            for(var i=0;i&lt;70;i++){
+            for(var i=0;i&lt;70;i++){ // spawn the aimed lasers
                 var cx=cxstart+24*i*dcos(ca);
                 var cy=cystart-24*i*dsin(ca);
                 if(cx&lt;-32||cx&gt;room_width+32||cy&lt;-32||cy&gt;room_height+32) continue;
@@ -2947,9 +3011,9 @@ switch(attack){ //Main attack loop
                     var obj=instance_create_ext(cx,cy,objPBullet,0,0,cscale,0);
                     obj.image_alpha=0.0;
                     obj.killer=false;
-                    obj.image_index=0;
+                    obj.image_index=8;
                     //instance_scale(obj,1,floor(6*BT),tween_sine_out); 
-                    instance_change_alpha(obj,0.5,floor(2.66*BT),tween_sine_out); 
+                    instance_change_alpha(obj,0.4,floor(2.66*BT),tween_sine_out); 
                 }
             }
         }

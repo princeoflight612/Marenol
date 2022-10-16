@@ -139,6 +139,7 @@
       <sprite>sprites\sprTriangle</sprite>
       <sprite>sprites\sprGiygas</sprite>
       <sprite>sprites\sprTrain</sprite>
+      <sprite>sprites\sprBubble</sprite>
       <sprite>sprites\sprSquareSolid</sprite>
       <sprite>sprites\sprD4</sprite>
     </sprites>
@@ -256,7 +257,9 @@
     <shader type="GLSLES">shaders\shMarenolDistortion.shader</shader>
     <shader type="GLSLES">shaders\shHueShift.shader</shader>
     <shader type="GLSLES">shaders\shSqrtWave.shader</shader>
+    <shader type="GLSLES">shaders\shSqrtWaveRadial.shader</shader>
     <shader type="GLSLES">shaders\shAurora.shader</shader>
+    <shader type="GLSLES">shaders\shPlasma.shader</shader>
     <shader type="GLSLES">shaders\shSqrtWaveVertical.shader</shader>
   </shaders>
   <fonts name="fonts">
@@ -405,6 +408,7 @@
         <object>objects\objPTrail</object>
         <object>objects\objPDecayOrb</object>
         <object>objects\objPDecayBloodOrb</object>
+        <object>objects\objPCosmetic</object>
         <object>objects\objPDrawController</object>
         <object>objects\objPColourInvert</object>
         <object>objects\objPUnderwater</object>
