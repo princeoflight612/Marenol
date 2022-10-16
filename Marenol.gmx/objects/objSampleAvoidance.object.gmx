@@ -1135,6 +1135,10 @@ switch(attack){ //Main attack loop
             
             instance_change_alpha(obj,0.8,30,tween_linear);
             instance_change_variable(obj,"intensity",0.7,30,tween_linear);
+            with(instance_create(0,0,objPShaderEffect)){
+                shader=shChromaticAberration;
+                intensity=0.006;
+            }
         }
         if(ct mod floor(0.5*BT) == 1){
             repeat(irandom_range(1,2)){
@@ -1156,11 +1160,21 @@ switch(attack){ //Main attack loop
                 instance_scale(id,0,floor(8*BT),tween_sine_inout);
             }
         }
+        if(ct&lt;floor(13*BT)){
+            with(objPShaderEffect) intensity=random(0.005);
+        }
+        else{
+            with(objPShaderEffect) {
+                intensity=random(0.005)*rlerp(floor(16*BT),floor(13*BT),ct)
+                //instance_change_variable(id,"intensity",0,50,tween_sine_out);
+            }
+        }
         break;
     }
     case marenolAvoidanceAttacks.SAW_BOX_SETUP:
     {
         if(ct==1){ 
+            with(objPShaderEffect) instance_destroy();
             with(objPShaderRectangle) instance_fade_out(id,30);
         
             //setup the shader effect
@@ -1182,7 +1196,7 @@ switch(attack){ //Main attack loop
             }
             with(instance_create(0,0,objPShaderEffect)){
                 shader=shStatic;
-                intensity=0.003;
+                intensity=0.006;
             }
             
             //Setup the aimed line
@@ -1531,7 +1545,7 @@ switch(attack){ //Main attack loop
             }
             
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shStatic;
+                shader=shChromaticAberration2;
                 intensity=0.012;
             }
             with(objPBullet){
@@ -1640,7 +1654,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shStatic;
+                shader=shChromaticAberration2;
                 intensity=0.012;
             }
             with(objPBullet){
@@ -1751,7 +1765,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shStatic;
+                shader=shChromaticAberration2;
                 intensity=0.012;
             }
             with(objP3DCircle){
@@ -1881,7 +1895,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shStatic;
+                shader=shChromaticAberration2;
                 intensity=0.012;
             }
             with(objP3DCircle){

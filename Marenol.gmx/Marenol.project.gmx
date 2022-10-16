@@ -247,6 +247,8 @@
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shSepia.shader</shader>
     <shader type="GLSLES">shaders\shStatic.shader</shader>
+    <shader type="GLSLES">shaders\shChromaticAberration.shader</shader>
+    <shader type="GLSLES">shaders\shChromaticAberration2.shader</shader>
     <shader type="GLSLES">shaders\shWave.shader</shader>
     <shader type="GLSLES">shaders\shDoubleWave.shader</shader>
     <shader type="GLSLES">shaders\shStaticInvert.shader</shader>
