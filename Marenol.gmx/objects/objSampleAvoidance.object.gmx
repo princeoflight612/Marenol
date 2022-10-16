@@ -1290,15 +1290,18 @@ switch(attack){ //Main attack loop
         }
         if(ct==2||ct==100||ct==200){
             //spawn the large background bubble
-            var bs=random_range(1,3);
-            var bubble=instance_create(random(800),608+128*bs,objPCosmetic);
-            bubble.killer=false;
-            bubble.sprite_index=sprBubble;
-            bubble.image_alpha=0.1;
-            bubble.image_xscale=bs;
-            bubble.image_yscale=bs;
-            bubble.vspeed=-image_xscale*2.5;
-            bubble.tag=888;
+            for(var i=0;i&lt;3;i++){
+                var bs=random_range(1,3);
+                if(i&gt;0) bs=random_range(0.5,0.8);
+                var bubble=instance_create(random(800),608+128*bs+(i&gt;0)*random_range(-32,32),objPCosmetic);
+                bubble.killer=false;
+                bubble.sprite_index=sprBubble;
+                bubble.image_alpha=0.1;
+                bubble.image_xscale=bs;
+                bubble.image_yscale=bs;
+                bubble.vspeed=-bubble.image_xscale;
+                bubble.tag=888;
+            }
         }   
         if(ct mod floor(BT)==1&amp;&amp;ct&lt;floor(15*BT)){
             var a=scrMakeCircleTagDist(random_range(200,600),random_range(100,508),random(360),8,2,0,objPBullet,1);
@@ -1376,16 +1379,19 @@ switch(attack){ //Main attack loop
         }
         if(ct==2||ct==100||ct==200){
             //spawn the large background bubbles
-            var bs=random_range(1,3);
-            var bubble=instance_create(random(800),608+128*bs,objPCosmetic);
-            bubble.killer=false;
-            bubble.sprite_index=sprBubble;
-            bubble.image_alpha=0.08;
-            bubble.image_xscale=bs;
-            bubble.image_yscale=bs;
-            bubble.vspeed=-image_xscale*2.5;
-            bubble.tag=888;
-            bubble.image_blend=c_red;
+            for(var i=0;i&lt;3;i++){
+                var bs=random_range(1,3);
+                if(i&gt;0) bs=random_range(0.2,0.5);
+                var bubble=instance_create(random(800),608+128*bs+(i&gt;0)*random_range(-32,32),objPCosmetic);
+                bubble.killer=false;
+                bubble.sprite_index=sprBubble;
+                bubble.image_alpha=0.08;
+                bubble.image_xscale=bs;
+                bubble.image_yscale=bs;
+                bubble.vspeed=-bubble.image_xscale;
+                bubble.tag=888;
+                bubble.image_blend=c_red;
+            }
         } 
         with(objPCosmetic){
             if(tag==888){ //Bubble behaviour
