@@ -1545,7 +1545,7 @@ switch(attack){ //Main attack loop
             }
             
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shChromaticAberration2;
+                shader=shStatic;
                 intensity=0.012;
             }
             with(objPBullet){
@@ -1654,7 +1654,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shChromaticAberration2;
+                shader=shStatic;
                 intensity=0.012;
             }
             with(objPBullet){
@@ -1765,7 +1765,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shChromaticAberration2;
+                shader=shStatic;
                 intensity=0.012;
             }
             with(objP3DCircle){
@@ -1895,7 +1895,7 @@ switch(attack){ //Main attack loop
                 }
             }
             with(instance_create(0,0,objPShaderEffect)){
-                shader=shChromaticAberration2;
+                shader=shStatic;
                 intensity=0.012;
             }
             with(objP3DCircle){
