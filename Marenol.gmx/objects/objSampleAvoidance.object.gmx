@@ -195,8 +195,12 @@ RealStep += room_speed * delta_time / 1000000;
             <kind>1</kind>
             <string>///Increment timer, sync to music
 view_yview[0]+=cameraSpeed;
-if(!instance_exists(objPlayer)||finish) exit;
-
+if(!instance_exists(objPlayer)||finish) {
+    if(attack==marenolAvoidanceAttacks.FINAL_FALL){
+        with(objPBullet) gravity=0;
+    }
+    exit;
+}
 if(!instance_exists(objPBossMarker)){
      instance_destroy();
      exit;
@@ -3332,12 +3336,20 @@ switch(attack){ //Main attack loop
             with(objPPendulum) instance_destroy();   
             with(objPBullet) gravity=0.35;
             with(objPlayer){
-                vspeed=-0.5;
+                //vspeed=-0.5;
                 djump=false;
             }
             global.infJump=false;
         }
         if(ct&gt;floor(2*BT)){
+            with(objPlayer){
+                if(y&lt;view_yview[0]+400){
+                    y++;
+                    if(vspeed&lt;-0.5) vspeed+=0.5;
+                }
+                if(vspeed&gt;other.cameraSpeed) vspeed-=0.4;
+            }
+            
             if(cameraSpeed&lt;9) cameraSpeed+=0.35;
             with(objPBullet){
 
