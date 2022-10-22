@@ -470,6 +470,7 @@ switch(attack){ //Main attack loop
             
         }
         if(ct&gt;BT&amp;&amp;ct mod floor(BT)==1){
+            //Spawn green bullets
             var bx=random(800);
             var by=view_yview[0]+608;
             var ba=90+random_range(-10,10);
@@ -479,6 +480,15 @@ switch(attack){ //Main attack loop
                 obj.hspeed=bs*dcos(ba);
                 obj.vspeed=9-bs*dsin(ba);
                 //instance_scale(obj,1-0.1*i,10,tween_sine_out);
+            }
+            
+            //Create a pulsing effect for all of the green bullets
+            with(objPBullet){
+                if(tag==9){
+                    image_xscale=1.5;
+                    image_yscale=1.5;
+                    instance_scale(id,1,30,tween_sine_out);
+                }
             }
         }
         
@@ -495,6 +505,7 @@ switch(attack){ //Main attack loop
     }
     case marenolAvoidanceAttacks.LONG_DROP_SPIRALS:
     {
+    
         if(ct mod floor(BT)==1){
             for(var j=0;j&lt;2;j++){ //collectible bullets
                 var bx=random(800);
@@ -513,9 +524,21 @@ switch(attack){ //Main attack loop
                     instance_scale(obj,1-0.1*i,10,tween_sine_out);
                 }
             }
+            
+            //Create a pulsing effect for all of the green bullets
+            with(objPBullet){
+                
+                if(tag==9){
+                    image_xscale=1.5;
+                    image_yscale=1.5;
+                    instance_scale(id,1,30,tween_sine_out);
+                }
+            }
         }
         if(ct==1){
-            with(objPBullet){
+            
+            
+            with(objPBullet){ //scale down the arrowheads
                 if(tag==0) instance_scale(id,0.5*image_xscale,floor(8*BT),tween_linear);
             }
             for(var i=0;i&lt;=608;i+=16){ //cosmetic circle
@@ -541,6 +564,14 @@ switch(attack){ //Main attack loop
                     instance_scale(obj,1,10,tween_sine_out);
                 }
             }
+            
+            //cosmetic line in the bg indicating the position of the red curtain
+            
+            cosmeticCurtain = instance_create(0,curtainY+view_yview[0],objPShaderRectangle);
+            cosmeticCurtain.image_blend=c_red;
+            cosmeticCurtain.shader=shSqrtWaveCurtain;
+            cosmeticCurtain.image_alpha=1;
+            cosmeticCurtain.intensity=0.7;
         }
         if(ct==2){
             with(objP3DBullet){
@@ -561,6 +592,10 @@ switch(attack){ //Main attack loop
                     instance_fade_out(id,30);
                     instance_scale(id,3,30,tween_linear);
                     tag=-1;
+                    with(objPShaderRectangle){
+                        image_blend=c_aqua;
+                        instance_change_colour_variable(id,"image_blend",c_red,30,tween_sine_out);
+                    }
                 }
              }else if(tag==3){ //bullets from the bottom
                 if(y-view_yview[0]&lt;other.curtainY){
@@ -576,7 +611,9 @@ switch(attack){ //Main attack loop
         obj.sprite_index=sprPCircleInverted;
         obj.image_index=4;
         
-        
+        with(objPShaderRectangle){
+            y=lerp(y,other.curtainY+view_yview[0],0.5);
+        }
         with(objPlayer){
             if(y&lt;view_yview[0]+128){
                 y++;
@@ -2263,6 +2300,9 @@ switch(attack){ //Main attack loop
                 obj.gravity*=25;
                 obj.speed*=5;
                 obj.image_index=0;
+                obj.image_xscale=1.2;
+                obj.image_yscale=1.2;
+                
                 obj.destroyOutside=true;
                 with(obj) scrTraceTrajectory(objPBullet,50,24,tag);
                 
@@ -2351,7 +2391,8 @@ switch(attack){ //Main attack loop
                 obj.gravity_direction=obj.direction+180+random_range(45,135);
                 obj.image_index=0;
                 obj.destroyOutside=true;
-                
+                obj.image_xscale=1.2;
+                obj.image_yscale=1.2;
                 with(obj) scrTraceTrajectory(objPBullet,50,24,tag);
                 
                 ///Trace the trajectories of the bullets and activate them accordingly
@@ -2441,6 +2482,8 @@ switch(attack){ //Main attack loop
                 obj.speed*=5;
                 obj.curveSpeed*=5;
                 obj.gravity*=25;
+                obj.image_xscale=1.2;
+                obj.image_yscale=1.2;
                 with(obj) scrTraceTrajectory(objPBullet,50,24,tag);
                 
                 ///Trace the trajectories of the bullets and activate them accordingly
@@ -2595,6 +2638,17 @@ switch(attack){ //Main attack loop
             }
             
             //instance_create(0,0,objPColourInvert);
+            
+        }
+        if(ct&gt;floor(15.5*BT)&amp;&amp;t&lt;timings[marenolAvoidanceAttacks.DECAY]-1){
+            with(objPlayer){
+                gravity=0;
+                speed=0;
+                x=objP3DCircle.x;
+                y=objP3DCircle.y;
+                repeat(10)
+                    instance_create(x,y,objBlood);
+            }
         }
         with(objPBullet){
             if(tag==10){
@@ -3042,6 +3096,15 @@ switch(attack){ //Main attack loop
                 }
             }
         }
+        if(ct mod floor(1.33*BT) == floor(1.33*BT) - 15||ct mod floor(1.33*BT) == floor(1.33*BT) - 5){ //flickering to indicate the bullet is going to activate
+            with(objPBullet) {
+                if(tag==2) image_index=8;
+            }
+        }else if(ct mod floor(1.33*BT) == floor(1.33*BT) - 10){
+            with(objPBullet) {
+                if(tag==2) image_index=0;
+            }
+        }
         with(objPBullet){
             if(tag==6){
                 image_xscale=xscalestart*other.decayScale;
@@ -3301,7 +3364,6 @@ switch(attack){ //Main attack loop
     case marenolAvoidanceAttacks.FINAL_FALL:
     {
         if(ct==1){
-            
             with(objPPendulum){
                 instance_change_variable(id,"intensity",0,floor(2*BT),tween_sine_inout);
                 freq=0;

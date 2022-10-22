@@ -263,6 +263,7 @@
     <shader type="GLSLES">shaders\shAurora.shader</shader>
     <shader type="GLSLES">shaders\shPlasma.shader</shader>
     <shader type="GLSLES">shaders\shSqrtWaveVertical.shader</shader>
+    <shader type="GLSLES">shaders\shSqrtWaveCurtain.shader</shader>
   </shaders>
   <fonts name="fonts">
     <font>fonts\fDefault30</font>
@@ -435,6 +436,7 @@
         <object>objects\oRdrShrinkCommand</object>
         <object>objects\oRdrChangeColorCommand</object>
         <object>objects\oDelayedExecutionCommand</object>
+        <object>objects\oRdrChangeColourVariableCommand</object>
         <object>objects\oViewScreenShakeCommand</object>
       </objects>
     </objects>

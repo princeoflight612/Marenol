@@ -25,5 +25,10 @@ for(var i=0;i<steps;i++){
         cr-=dist;
         var obj=instance_create(cx,cy,spawnObj);
         obj.tag=spawnTag;
+        obj.image_xscale=image_xscale;
+        obj.image_yscale=image_yscale;
+        image_xscale-=0.01;
+        image_yscale-=0.01;
+        
     }   
 }
