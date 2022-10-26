@@ -4,7 +4,7 @@
   <width>800</width>
   <height>608</height>
   <vsnap>16</vsnap>
-  <hsnap>32</hsnap>
+  <hsnap>16</hsnap>
   <isometric>0</isometric>
   <speed>50</speed>
   <persistent>0</persistent>
@@ -69,13 +69,13 @@
     <instance objName="objBlock" x="352" y="160" name="inst_4132928D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="320" y="160" name="inst_D4F4243E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="288" y="160" name="inst_C9A81EB2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objPBlockDraw" x="96" y="0" name="inst_622F80D3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="-32" y="0" name="inst_A813B954" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="800" y="0" name="inst_14BF56C8" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
+    <instance objName="objBlock" x="-48" y="0" name="inst_A813B954" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
+    <instance objName="objBlock" x="816" y="0" name="inst_14BF56C8" locked="0" code="" scaleX="1" scaleY="19" colour="4294967295" rotation="0"/>
     <instance objName="objBetterBlock" x="256" y="160" name="inst_C4A13A98" locked="0" code="tag=0;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
     <instance objName="objBetterBlock" x="256" y="448" name="inst_6C1DAC94" locked="0" code="tag=1;&#xA;" scaleX="1" scaleY="-4.5" colour="4294967295" rotation="0"/>
     <instance objName="objBetterBlock" x="512" y="160" name="inst_FF81BF65" locked="0" code="tag=0;" scaleX="1" scaleY="4.5" colour="4294967295" rotation="0"/>
     <instance objName="objBetterBlock" x="512" y="448" name="inst_F2D89D23" locked="0" code="tag=1;&#xA;" scaleX="1" scaleY="-4.5" colour="4294967295" rotation="0"/>
+    <instance objName="objPBlockDrawClearPart" x="96" y="0" name="inst_FFBA41A1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bgPWhite" x="256" y="352" w="32" h="32" xo="0" yo="32" id="10002514" name="inst_0A33F651" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

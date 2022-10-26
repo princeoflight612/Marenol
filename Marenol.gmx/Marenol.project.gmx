@@ -45,6 +45,7 @@
       <sprite>sprites\sprPlayerRunning</sprite>
       <sprite>sprites\sprPlayerSliding</sprite>
       <sprite>sprites\sprBow</sprite>
+      <sprite>sprites\sprBowCentered</sprite>
       <sprite>sprites\sprBullet</sprite>
       <sprite>sprites\sprBlood</sprite>
       <sprite>sprites\sprGameOver</sprite>
@@ -225,6 +226,7 @@
       <script>scripts\instance_change_alpha.gml</script>
       <script>scripts\instance_change_variable.gml</script>
       <script>scripts\instance_change_variable_array.gml</script>
+      <script>scripts\instance_change_variable_array_full.gml</script>
       <script>scripts\view_offset.gml</script>
       <script>scripts\view_scale.gml</script>
       <script>scripts\view_move_scale.gml</script>
@@ -398,6 +400,7 @@
       <object>objects\objAvoidanceFlower</object>
       <object>objects\objPBlockDraw</object>
       <object>objects\objPBlockDrawClear</object>
+      <object>objects\objPBlockDrawClearPart</object>
       <object>objects\objPEyeFadeMarker</object>
       <object>objects\objPBossMarker</object>
       <objects name="Marenol">
@@ -428,6 +431,7 @@
         <object>objects\oRdrScaleCommand</object>
         <object>objects\oRdrChangeVariableCommand</object>
         <object>objects\oRdrChangeVariableArrayCommand</object>
+        <object>objects\oRdrChangeVariableArrayFullCommand</object>
         <object>objects\oViewScaleCommand</object>
         <object>objects\oViewMoveScaleCommand</object>
         <object>objects\oViewOffsetCommand</object>

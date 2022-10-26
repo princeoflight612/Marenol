@@ -79,6 +79,7 @@
     <instance objName="objPEyeFadeMarker" x="304" y="272" name="inst_DFFFCF36" locked="0" code="" scaleX="6" scaleY="2" colour="4294967295" rotation="0"/>
     <instance objName="objPEyeFadeMarker" x="304" y="464" name="inst_59667618" locked="0" code="" scaleX="6" scaleY="2" colour="4294967295" rotation="0"/>
     <instance objName="objPEyeFadeMarker" x="528" y="368" name="inst_429E1E7B" locked="0" code="" scaleX="6" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="objPBlockDrawClear" x="96" y="0" name="inst_8C299482" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bgPWhite" x="96" y="384" w="32" h="32" xo="0" yo="32" id="10002490" name="inst_92656308" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

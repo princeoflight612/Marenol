@@ -83,7 +83,6 @@
     <instance objName="objBlock" x="768" y="224" name="inst_FBE88D95" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="800" y="224" name="inst_59359EAF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="-32" y="224" name="inst_87B6EC22" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objBlock" x="-32" y="352" name="inst_EB7FE37B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="0" y="352" name="inst_E63BB043" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="32" y="352" name="inst_F2AECF63" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="64" y="352" name="inst_0449FA75" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -110,6 +109,7 @@
     <instance objName="objBlock" x="736" y="352" name="inst_E72AADB1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="768" y="352" name="inst_CC45DFD0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBlock" x="800" y="352" name="inst_7C7A4530" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objBlock" x="-32" y="352" name="inst_9020CF97" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bgPWhite" x="0" y="224" w="32" h="32" xo="0" yo="32" id="10002341" name="inst_396CA58A" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

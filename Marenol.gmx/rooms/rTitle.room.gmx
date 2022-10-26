@@ -52,7 +52,7 @@
   </views>
   <instances>
     <instance objName="objTitleMenu" x="256" y="416" name="inst_45B14C65" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objPEndingText" x="400" y="304" name="inst_44625212" locked="0" code="image_blend=c_red;&#xA;image_xscale=2;&#xA;image_yscale=2;&#xA;" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="objPEndingText" x="400" y="304" name="inst_44625212" locked="0" code="image_blend=c_red;&#xA;image_xscale=2;&#xA;image_yscale=2;" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
     <instance objName="objPrince_ElishaNoise" x="288" y="256" name="inst_D8312E59" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>

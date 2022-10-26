@@ -49,6 +49,13 @@
           <argument>
             <kind>1</kind>
             <string>visible = true;
+
+with(instance_create(400+view_xview[0],304+view_yview[0],objPEndingText)){
+    image_blend=c_red;
+    image_xscale=2;
+    image_yscale=2;
+    text="GAME OVER";
+}
 </string>
           </argument>
         </arguments>
@@ -71,7 +78,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(sprite_index, -1, display_get_gui_width()/2, display_get_gui_height()/2);
+            <string>//draw_sprite(sprite_index, -1, display_get_gui_width()/2, display_get_gui_height()/2);
 </string>
           </argument>
         </arguments>

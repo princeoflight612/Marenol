@@ -32,11 +32,13 @@ float rand(vec2 co){
 
 void main()
 {
-    float noise = intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
-    vec3 shift = 0.33*vec3(-intensity,0.0,intensity)+vec3(noise,noise,noise);
-    vec4 textureR = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.r,0.0))*vec4(1.0,0.0,0.2,1.0);
-    vec4 textureG = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.g,0.0))*vec4(0.2,1.0,0.0,1.0);
-    vec4 textureB = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.b,0.0))*vec4(0.0,0.2,1.0,1.0);
+    float noiseR = intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
+    float noiseG = 0.0*intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
+    float noiseB = -1.0*intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
+    vec3 shift = vec3(noiseR,noiseG,noiseB);
+    vec4 textureR = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.r,0.0))*vec4(1.0,0.0,0.0,1.0);
+    vec4 textureG = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.g,0.0))*vec4(0.0,1.0,0.0,1.0);
+    vec4 textureB = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.b,0.0))*vec4(0.0,0.0,1.0,1.0);
     
     gl_FragColor = v_vColour * (textureR+textureG+textureB);
 }

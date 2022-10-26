@@ -414,7 +414,12 @@ switch(attack){ //Main attack loop
             obj.colBottomRight=c_red;
             obj.image_alpha=0;
             instance_change_alpha(obj,0.1,floor(BT),tween_sine_inout);
+            
+            var obj2=instance_create(0,0,objPShaderEffect);
+            obj2.shader=shChromaticAberration;
+            obj2.intensity=random_range(-0.01,0.01);
         }
+        with(objPShaderEffect) intensity=random_range(-0.006,0.006);
         if(ct mod 4 == 0 &amp;&amp; ct&lt;floor(3*BT)){
             repeat(4){
                 var ba=-90+random_range(-60,60);
@@ -445,11 +450,13 @@ switch(attack){ //Main attack loop
                 instance_scale(id,0.5*image_xscale,15,tween_sine_out);
             }
         }
+        if(ct&gt;floor(3*BT)) with(objPShaderEffect) intensity*=(ct-floor(3*BT))/50;
         break;
     }
     case marenolAvoidanceAttacks.LONG_DROP:
     {
         if(ct==1){
+            with(objPShaderEffect) instance_destroy();
             scrBlockBreak(1000000);
             with(objPBullet){
                 friction=0;
@@ -584,8 +591,24 @@ switch(attack){ //Main attack loop
              if(tag==1){ //collectible bullets logic
                 if(place_meeting(x,y,objPlayer)){
                     if(!other.djumpRefreshed){
-                        objPlayer.djump=true;
+                        
                         other.djumpRefreshed=false;
+                        if(!objPlayer.djump){
+                            with(objBow){
+                                var obj=instance_create(x-3,y-9,objPCosmetic);
+                                obj.sprite_index=sprBowCentered;
+                                obj.image_index=image_index;
+                                obj.vspeed=9;
+                                obj.image_xscale=image_xscale;
+                                obj.image_alpha=0.65;
+                                instance_fade_out(obj,40);
+                                instance_change_variable(obj,"image_xscale",10*image_xscale,30,tween_linear);
+                                instance_change_variable(obj,"image_yscale",10,30,tween_linear);
+                                
+                                //instance_scale(obj,10,30,tween_linear);
+                            }
+                        }
+                        objPlayer.djump=true;
                     }
                     other.curtainY=min(other.curtainY+64,608);
                     vspeed=9;
@@ -646,7 +669,7 @@ switch(attack){ //Main attack loop
             obj.image_alpha=0;
             instance_change_alpha(obj,1,50,tween_linear);
             repeat(18){
-                var obj=instance_create_ext(objPlayer.x,objPlayer.y,objPBullet,random_range(7,11),-90+random_range(-30,30),random_range(0.5,1),2);
+                var obj=instance_create_ext(objPlayer.x,objPlayer.y,objPBullet,random_range(8.5,11),-90+random_range(-30,30),random_range(0.5,1),2);
                 obj.killer=false; 
                 obj.gravity=0.3;
                 obj.gravity_direction=90;
@@ -658,7 +681,8 @@ switch(attack){ //Main attack loop
             playerX=objPlayer.x;
             playerY=objPlayer.y;
             with(objPlayer){
-                frozen=true;
+                //frozen=true;
+                maxSpeed*=0.5;
                 global.noDeath=true;
             }
         }
@@ -1427,10 +1451,13 @@ switch(attack){ //Main attack loop
             //var obj=instance_create(0,0,objPShaderEffect);
             //obj.shader=shWormBlood;
             var obj=instance_create(0,0,objPShaderChain);
+            obj.numShaders=3;
             obj.shader[0]=shDoubleWave;
             obj.shader[1]=shWormBlood;
+            obj.shader[2]=shChromaticAberration2;
             obj.intensity[0]=0.01;
             obj.intensity[1]=1.0;
+            obj.intensity[2]=0.00;
         }
         if(ct==2||ct==100||ct==200){
             //spawn the large background bubbles
@@ -1467,7 +1494,15 @@ switch(attack){ //Main attack loop
             }
             with(objPShaderChain){
                 intensity[0]=0.06;
-                instance_change_variable_array(id,"intensity",0,0.01,floor(2*BT),tween_sine_out);
+                intensity[2]=0.003;
+                
+                aa[0]=0;
+                aa[1]=intensity[1];
+                aa[2]=0;
+                instance_change_variable_array_full(id,"intensity",aa,floor(2*BT),tween_sine_out);
+                //instance_change_variable_array(id,"intensity",0,0.01,floor(2*BT),tween_sine_out);
+                
+                //instance_change_variable_array(id,"intensity",2,0.01,floor(2*BT),tween_sine_out);
             }
             repeat(4){
                 var obj=instance_create(objPlayer.x+random_range(-64,64),objPlayer.y+random_range(-64,64),objAvoidanceFlower);
@@ -2646,7 +2681,7 @@ switch(attack){ //Main attack loop
                 speed=0;
                 x=objP3DCircle.x;
                 y=objP3DCircle.y;
-                repeat(10)
+                repeat(30)
                     instance_create(x,y,objBlood);
             }
         }
@@ -2980,6 +3015,7 @@ switch(attack){ //Main attack loop
                     obj.image_index=0;
                     obj.image_alpha=0;
                     obj.killer=false;
+                    obj.drawTag=true;
                     instance_scale(obj,4*obj.image_xscale,30,tween_linear);
                     instance_change_alpha(obj,1,30,tween_linear);
                 }
@@ -3096,13 +3132,30 @@ switch(attack){ //Main attack loop
                 }
             }
         }
-        if(ct mod floor(1.33*BT) == floor(1.33*BT) - 15||ct mod floor(1.33*BT) == floor(1.33*BT) - 5){ //flickering to indicate the bullet is going to activate
+        if(ct mod floor(1.33*BT) == floor(1.33*BT) - ( 30 - floor(1.33*BT))){
             with(objPBullet) {
-                if(tag==2) image_index=8;
+                if(tag==1) {
+                    image_index=8;
+                    instance_change_alpha(id,0.4,8,tween_sine_inout);
+                    //image_alpha=0.4;
+                }
             }
-        }else if(ct mod floor(1.33*BT) == floor(1.33*BT) - 10){
+        }
+        if(ct mod floor(1.33*BT) == floor(1.33*BT) - 36||ct mod floor(1.33*BT) == floor(1.33*BT) - 12){ //flickering to indicate the bullet is going to activate
             with(objPBullet) {
-                if(tag==2) image_index=0;
+                if(tag==2) {
+                    image_index=8;
+                    instance_change_alpha(id,0.4,8,tween_sine_inout);
+                    //image_alpha=0.4;
+                }
+            }
+        }else if(ct mod floor(1.33*BT) == floor(1.33*BT) - 24||ct mod floor(1.33*BT) == floor(1.33*BT) - 48){
+            with(objPBullet) {
+                if(tag==2) {
+                    //image_index=0;
+                    //image_alpha=1.0;
+                    instance_change_alpha(id,0.8,8,tween_sine_inout);
+                }
             }
         }
         with(objPBullet){
