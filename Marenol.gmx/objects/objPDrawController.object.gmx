@@ -29,7 +29,10 @@
 
 draw_set_blend_mode(bm_add);
 
-with(objPBullet) draw_self();
+with(objPBullet){
+    if(!scaleTag) draw_self();
+    else draw_sprite_ext(sprite_index,image_index,x,y,exScale,exScale,image_angle,image_blend,image_alpha);
+}
 with(objPCosmetic) draw_self();
 
 with(objPTrail) draw_self();

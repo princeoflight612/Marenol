@@ -254,6 +254,7 @@
     <shader type="GLSLES">shaders\shWave.shader</shader>
     <shader type="GLSLES">shaders\shDoubleWave.shader</shader>
     <shader type="GLSLES">shaders\shStaticInvert.shader</shader>
+    <shader type="GLSLES">shaders\shStaticInvert2.shader</shader>
     <shader type="GLSLES">shaders\shBloodRed.shader</shader>
     <shader type="GLSLES">shaders\shWormBlood.shader</shader>
     <shader type="GLSLES">shaders\shVignette.shader</shader>
@@ -409,6 +410,7 @@
         <object>objects\objPBgScreenIntro</object>
         <object>objects\objPBgGradient</object>
         <object>objects\objPEndingText</object>
+        <object>objects\objPEndingTextGui</object>
         <object>objects\objPBullet</object>
         <object>objects\objPBulletCurve</object>
         <object>objects\objPTrail</object>

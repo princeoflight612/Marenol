@@ -240,7 +240,7 @@ if (strButton[0] == "-1") strButton[0] = "Disabled";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_black);
+            <string>draw_set_color(c_white);
 draw_set_font(fDefault24);
 
 for(var i = 0; i &lt; 12; i += 1)
@@ -290,7 +290,7 @@ if (global.controllerIndex != -1)
     
     draw_text(xSelector+2,ySelector+(12)*ySeperation+34,controllerText);
     
-    draw_set_color(c_black);
+    draw_set_color(c_white);
 }
 
 scrDrawButtonInfo(false);

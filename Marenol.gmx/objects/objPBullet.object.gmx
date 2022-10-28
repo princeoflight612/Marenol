@@ -35,6 +35,8 @@ destroyOutside=false;
 
 
 drawTag=false;
+scaleTag=false;
+exScale=image_xscale;
 </string>
           </argument>
         </arguments>

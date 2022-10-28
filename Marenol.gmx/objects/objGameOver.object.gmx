@@ -50,8 +50,11 @@
             <kind>1</kind>
             <string>visible = true;
 
-with(instance_create(400+view_xview[0],304+view_yview[0],objPEndingText)){
+with(instance_create(400,304,objPEndingTextGui)){
     image_blend=c_red;
+    if(instance_exists(objPBloodRed)) {
+        image_blend=c_blue;
+    }
     image_xscale=2;
     image_yscale=2;
     text="GAME OVER";

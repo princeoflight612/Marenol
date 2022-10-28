@@ -145,6 +145,7 @@ t=60;
 audio_sound_set_track_position(global.currentMusic,t/50);
 
 djumpRefreshed=false;
+invertT=0;
 </string>
           </argument>
         </arguments>
@@ -983,7 +984,13 @@ switch(attack){ //Main attack loop
         }
         if(ct==floor(7*BT)+1){
             global.infJump=true; //Infinite jump
-            instance_create(0,0,objPColourInvert);
+            //instance_create(0,0,objPColourInvert);
+            //with(objPShaderChain) intensity[1]=1;
+            
+            with(instance_create(0,0,objPShaderEffect)){
+                shader=shStaticInvert;
+                intensity=0;
+            }
             with(objPBullet){
                 if(tag==6){
                     with(oDelayedExecutionCommand) if(scr==instance_scale) instance_destroy();
@@ -1016,7 +1023,10 @@ switch(attack){ //Main attack loop
                 }
             }
             tile_layer_hide(1000000);
-            with(objPColourInvert) instance_destroy();
+            
+            with(objPShaderEffect) instance_destroy();
+                //Replaced the old buggy elisha invert with the shader invert that should hopefully work better
+            //with(objPColourInvert) instance_destroy();
             var obj=instance_create(400,304,objP3DCircle);
             obj.image_xscale=100;
             obj.image_yscale=100;
@@ -1128,7 +1138,7 @@ switch(attack){ //Main attack loop
                 instance_destroy();
             }
             with(oRdrShrinkCommand) instance_destroy();
-            instance_create(0,0,objPColourInvert);
+            //instance_create(0,0,objPColourInvert);
             with(instance_create(0,0,objPShaderEffect)){
                 shader=shStaticInvert;
                 intensity=0;
@@ -2078,6 +2088,7 @@ switch(attack){ //Main attack loop
     case marenolAvoidanceAttacks.GREEN_SQUARES:
     {
         if(ct==1){
+            invertT=floor(0.2*ct);
             with(objPShaderEffect){
                 instance_destroy();
             }
@@ -2100,16 +2111,17 @@ switch(attack){ //Main attack loop
             instance_scale(obj,3*image_xscale,floor(BT),tween_linear);
         }
         if(ct mod 4 == 0 &amp;&amp; ct&lt;floor(3*BT)){ //radial arrow invert pattern
+            invertT=floor(0.2*ct);
             repeat(6){
                 var ba=random(360);
                 var br=508;
                 var bx=400+br*dcos(ba);
                 var by=304-br*dsin(ba);
                 
-                var obj=instance_create_ext(bx,by,objPBullet,2,ba+180,2,0);
+                var obj=instance_create_ext(bx,by,objPBullet,2,ba+180,2,1001);
                 obj.sprite_index=sprPBigArrowhead;
-                instance_scale(obj,0.0,50-floor(0.2*ct),tween_linear);
-                instance_change_alpha(obj,0.5,50-floor(0.2*ct),tween_sine_in);
+                //instance_scale(obj,0.0,50-floor(0.2*ct),tween_linear);
+                //instance_change_alpha(obj,0.5,50-floor(0.2*ct),tween_sine_in);
                 obj.gravity=0.2;
                 obj.gravity_direction=obj.direction;//+random_range(-10,10);
                 obj.image_angle=obj.direction;
@@ -2117,6 +2129,37 @@ switch(attack){ //Main attack loop
             }
         }
         with(objPBullet){
+        
+        
+            //Experimental radial invert bullet control
+            if(tag&gt;=1001&amp;&amp;tag&lt;1300){
+                tag++;
+                if(tag&gt;1001+40-other.invertT&amp;&amp;tag&lt;1100){
+                    tag=1100;
+                    killer=false;
+                    instance_scale(id,0.5,10,tween_linear);
+                    instance_change_alpha(id,0.2,10,tween_linear);
+                    gravity=0;
+                    speed/=2;
+                }else if(tag&gt;1140){
+                    instance_scale(id,1,10,tween_linear);
+                    instance_change_alpha(id,1,10,tween_linear);
+                    sprite_index=sprPBigArrowheadInverted;
+                    tag=1300;
+                }
+            }else if(tag==1300){
+                if(image_alpha&gt;0.9) tag=1301;
+            }else if(tag==1301){
+                killer=(image_xscale&gt;0.5&amp;&amp;image_alpha&gt;0.9);
+                image_alpha-=0.05;
+                image_xscale-=0.05;
+                image_yscale-=0.05;
+                
+                if(image_xscale&lt;=0.00) instance_destroy();
+            }
+            
+            
+            //Radial invert bullet control
             if(tag==0){
                 if(image_xscale&lt;0.3) killer=false;
                 if(image_xscale&lt;0.01){
@@ -2225,15 +2268,16 @@ switch(attack){ //Main attack loop
             }
         }
         
-        if(ct mod 4 == 0 &amp;&amp; ct&lt;floor(11*BT) &amp;&amp; ct&gt;floor(8*BT)){
+        if(ct mod 4 == 0 &amp;&amp; ct&lt;floor(11*BT) &amp;&amp; ct&gt;floor(8*BT)){ //horizontal invert pattern
+            invertT=floor(0.3*(ct-floor(8*BT)))
             repeat(6){
                 var bx=400;
                 var by=random(608);
                 
-                var obj=instance_create_ext(bx,by,objPBullet,2,choose(0,180),2,0);
+                var obj=instance_create_ext(bx,by,objPBullet,2,choose(0,180),2,1001+10);
                 obj.sprite_index=sprPBigArrowhead;
-                instance_scale(obj,0.0,40-floor(0.3*(ct-floor(8*BT))),tween_linear);
-                instance_change_alpha(obj,0.5,40-floor(0.3*(ct-floor(8*BT))),tween_sine_in);
+                //instance_scale(obj,0.0,40-floor(0.3*(ct-floor(8*BT))),tween_linear);
+                //instance_change_alpha(obj,0.5,40-floor(0.3*(ct-floor(8*BT))),tween_sine_in);
                 obj.gravity=0.2;
                 obj.gravity_direction=obj.direction;//+random_range(-10,10);
                 obj.image_angle=obj.direction;
@@ -2242,8 +2286,11 @@ switch(attack){ //Main attack loop
         }
         if(ct==floor(10*BT)){
             with(objPBullet) if(tag==999) instance_destroy();
+            
+            
         }
         if(ct&gt;floor(10*BT)&amp;&amp;ct&lt;floor(14*BT)){
+            
             if(ct%8==1){
                 //vertical cosmetic lines in the bg
                 
@@ -2264,7 +2311,7 @@ switch(attack){ //Main attack loop
             for(var i=0;i&lt;=608;i+=32){
                 cx+=choose(-32,32);
                 if(cx&gt;400-64) cx-=64;
-                else if(cy&lt;400+64-544) cx+=64; //prevent the squares from going to far horizontally and covering the center
+                else if(cx&lt;400+64-544) cx+=64; //prevent the squares from going to far horizontally and covering the center
                 for(var j=-1;j&lt;2;j+=2){
                     for(var k=0;k&lt;16;k++){
                         cy=i;
@@ -2860,15 +2907,17 @@ switch(attack){ //Main attack loop
                 var obj=instance_create_ext(objPlayer.x,objPlayer.y,objPBullet,random(0.5),random(360),random_range(0.5,1.2),1);
                 
                 obj.sprite_index=sprPCircleInverted;
+                obj.scaleTag=1;
+                
                 obj.image_index=irandom(obj.image_number-1);
                 obj.killer=false;
                 obj.image_alpha=0;
                 obj.xscalestart=obj.image_xscale;
                 obj.yscalestart=obj.image_yscale;
                 
-                obj.image_xscale=obj.xscalestart*decayScale;
-                obj.image_yscale=obj.yscalestart*decayScale;
-                
+                //obj.image_xscale=obj.xscalestart*decayScale;
+                //obj.image_yscale=obj.yscalestart*decayScale;
+                obj.exScale=obj.xscalestart*decayScale;
                 instance_change_alpha(obj,1,45,tween_linear);
                 
             }
@@ -2890,7 +2939,7 @@ switch(attack){ //Main attack loop
                     obj.image_xscale=obj.xscalestart*decayScale;
                     obj.image_yscale=obj.yscalestart*decayScale;
                     */
-                    
+                    //instance_change_variable(obj,"exScale",3,30,tween_linear);
                     instance_scale(obj,3,30,tween_linear);
                     
                 }    
@@ -2904,8 +2953,9 @@ switch(attack){ //Main attack loop
                     instance_fade_out(id,100);
                     tag=5;
                 }
-                image_xscale=xscalestart*other.decayScale;
-                image_yscale=yscalestart*other.decayScale;
+                //image_xscale=xscalestart*other.decayScale;
+                //image_yscale=yscalestart*other.decayScale;
+                exScale=xscalestart*other.decayScale;
             }
             //limit the bullet speed
             else if(tag==3){
@@ -3227,13 +3277,15 @@ switch(attack){ //Main attack loop
             obj.image_index=irandom(1);
             obj.image_blend=c_red;
             obj.killer=obj.image_index;
+            obj.exScale=1;
             
             obj.image_alpha=0.3+0.4*obj.killer;
             obj.xscalestart=obj.image_xscale;
             obj.yscalestart=obj.image_yscale;
             
-            obj.image_xscale=obj.xscalestart*decayScale;
-            obj.image_yscale=obj.yscalestart*decayScale;
+            //obj.image_xscale=obj.xscalestart*decayScale;
+            //obj.image_yscale=obj.yscalestart*decayScale;
+            obj.exScale=obj.xscalestart*decayScale;
             //instance_scale(obj,0.75*obj.image_xscale,30,tween_sine_out);
             
             var obj=instance_create_ext(random(800),608+32,objPBullet,1.5*cscale,90,0.75*cscale,-1);
@@ -3241,13 +3293,15 @@ switch(attack){ //Main attack loop
             obj.image_index=irandom(1);
             obj.image_blend=c_green;
             obj.killer=obj.image_index;
+            obj.exScale=1;
             
             obj.image_alpha=0.3+0.4*obj.killer;
             obj.xscalestart=obj.image_xscale;
             obj.yscalestart=obj.image_yscale;
             
-            obj.image_xscale=obj.xscalestart*decayScale;
-            obj.image_yscale=obj.yscalestart*decayScale;
+            //obj.image_xscale=obj.xscalestart*decayScale;
+            //obj.image_yscale=obj.yscalestart*decayScale;
+            obj.exScale=obj.xscalestart*decayScale;
             //instance_scale(obj,0.75*obj.image_xscale,30,tween_sine_out);
             
         }
@@ -3258,8 +3312,9 @@ switch(attack){ //Main attack loop
                 killer=false;
             }
             if(tag==1||tag==-1){ //handle bullet scale
-                image_xscale=xscalestart*other.decayScale;
-                image_yscale=yscalestart*other.decayScale;
+                //image_xscale=xscalestart*other.decayScale;
+                //image_yscale=yscalestart*other.decayScale;
+                exScale=xscalestart*other.decayScale;
             }
         }
         

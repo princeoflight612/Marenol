@@ -169,8 +169,8 @@ surface_reset_target();
 for(var i=3;i&gt;=0;i--){
     var scale = 2*(1-i/4);
     draw_set_alpha(0.025*scale*image_alpha);
-    draw_set_colour(c_blue);
-    draw_rectangle(0,0,800,608,0);
+    draw_set_colour(c_blue); // blue rectangle
+    draw_rectangle(-400,-400,1200,1008,0);
     draw_surface_ext(surf,400-400*scale,304-304*scale,scale,scale,0,c_red,0.2*scale*image_alpha);
     
     draw_set_alpha(1);

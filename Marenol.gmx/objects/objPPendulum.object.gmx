@@ -167,7 +167,9 @@ if(surface_exists(surf2)) {
     surf=surface_create(800,608);
     view_surface_id[0]=surf;
 }
-
+if(!surface_exists(surf2)){
+    surf=surface_create(800,608);
+}
 surface_set_target(surf2);
 draw_clear_alpha(c_white,1-intensity);
 draw_set_alpha(1);
