@@ -487,15 +487,18 @@ switch(attack){ //Main attack loop
                 var obj=instance_create_ext(bx,by,objPBullet,1,ba,1,9);
                 obj.hspeed=bs*dcos(ba);
                 obj.vspeed=9-bs*dsin(ba);
+                obj.scaleTag=1;
                 //instance_scale(obj,1-0.1*i,10,tween_sine_out);
             }
             
             //Create a pulsing effect for all of the green bullets
             with(objPBullet){
                 if(tag==9){
-                    image_xscale=1.5;
-                    image_yscale=1.5;
-                    instance_scale(id,1,30,tween_sine_out);
+                    //image_xscale=1.5;
+                    //image_yscale=1.5;
+                    exScale=1.5;
+                    instance_change_variable(id,"exScale",1,30,tween_sine_out);
+                    //instance_scale(id,1,30,tween_sine_out);
                 }
             }
         }
@@ -537,9 +540,11 @@ switch(attack){ //Main attack loop
             with(objPBullet){
                 
                 if(tag==9){
-                    image_xscale=1.5;
-                    image_yscale=1.5;
-                    instance_scale(id,1,30,tween_sine_out);
+                    //image_xscale=1.5;
+                    //image_yscale=1.5;
+                    exScale=1.5;
+                    instance_change_variable(id,"exScale",1,30,tween_sine_out);
+                    //instance_scale(id,1,30,tween_sine_out);
                 }
             }
         }
@@ -1491,6 +1496,7 @@ switch(attack){ //Main attack loop
             }
         }
         if(ct mod floor(4*BT)==floor(2*BT)){
+            with(oRdrChangeVariableArrayFullCommand) instance_destroy();
             with(objAvoidanceFlower){
                 if(tag==0){ //burst into the red flower
                     var obj0=instance_create(x,y,objAvoidanceFlower);
@@ -1504,7 +1510,7 @@ switch(attack){ //Main attack loop
             }
             with(objPShaderChain){
                 intensity[0]=0.06;
-                intensity[2]=0.003;
+                intensity[2]=0.03;
                 
                 aa[0]=0;
                 aa[1]=intensity[1];
@@ -1522,6 +1528,21 @@ switch(attack){ //Main attack loop
             
             
             
+        }
+        if(ct mod floor(4*BT)==floor(1.25*BT)&amp;&amp;ct&gt;floor(4*BT)){ //Extra distortion
+            with(objPShaderChain){
+                intensity[0]=0.02;
+                intensity[2]=0.06;
+                
+                aa[0]=0;
+                aa[1]=intensity[1];
+                aa[2]=0;
+                instance_change_variable_array_full(id,"intensity",aa,floor(BT),tween_sine_out);
+                //instance_change_variable_array(id,"intensity",0,0.01,floor(2*BT),tween_sine_out);
+                
+                //instance_change_variable_array(id,"intensity",2,0.01,floor(2*BT),tween_sine_out);
+            }
+        
         }
         if(ct mod floor(4*BT)==1){
             var a=instance_create(400,304,objP3DCircle);
@@ -2909,6 +2930,7 @@ switch(attack){ //Main attack loop
                 obj.sprite_index=sprPCircleInverted;
                 obj.scaleTag=1;
                 
+                
                 obj.image_index=irandom(obj.image_number-1);
                 obj.killer=false;
                 obj.image_alpha=0;
@@ -3277,7 +3299,7 @@ switch(attack){ //Main attack loop
             obj.image_index=irandom(1);
             obj.image_blend=c_red;
             obj.killer=obj.image_index;
-            obj.exScale=1;
+            obj.scaleTag=1;
             
             obj.image_alpha=0.3+0.4*obj.killer;
             obj.xscalestart=obj.image_xscale;
@@ -3293,7 +3315,7 @@ switch(attack){ //Main attack loop
             obj.image_index=irandom(1);
             obj.image_blend=c_green;
             obj.killer=obj.image_index;
-            obj.exScale=1;
+            obj.scaleTag=1;
             
             obj.image_alpha=0.3+0.4*obj.killer;
             obj.xscalestart=obj.image_xscale;

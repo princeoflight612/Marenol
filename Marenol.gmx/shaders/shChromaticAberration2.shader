@@ -32,9 +32,9 @@ float rand(vec2 co){
 
 void main()
 {
-    float noiseR = intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
-    float noiseG = 0.0*intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
-    float noiseB = -1.0*intensity*(rand(vec2(v_vTexcoord.y,time))-0.5);
+    float noiseR = intensity*(rand(vec2(0.0,time))-0.5);
+    float noiseG = 0.0*intensity*(rand(vec2(0.0,time))-0.5);
+    float noiseB = -1.0*intensity*(rand(vec2(0.0,time))-0.5);
     vec3 shift = vec3(noiseR,noiseG,noiseB);
     vec4 textureR = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.r,0.0))*vec4(1.0,0.0,0.0,1.0);
     vec4 textureG = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord+vec2(shift.g,0.0))*vec4(0.0,1.0,0.0,1.0);
