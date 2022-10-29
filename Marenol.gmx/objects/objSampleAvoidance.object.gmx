@@ -458,6 +458,17 @@ switch(attack){ //Main attack loop
     }
     case marenolAvoidanceAttacks.LONG_DROP:
     {
+    
+        //cosmetic effect
+        with(instance_create(random(800),random(608)+view_yview[0]+200,objPCosmetic)){
+            image_alpha=0.2*min(rlerp(0,floor(4*BT),ct),1);
+            //sprite_index=sprSquareSolid;
+            image_xscale=0.5;
+            image_yscale=0.5;
+            
+            instance_fade_out(id,50);
+        }
+        
         if(ct==1){
             with(objPShaderEffect) instance_destroy();
             scrBlockBreak(1000000);
