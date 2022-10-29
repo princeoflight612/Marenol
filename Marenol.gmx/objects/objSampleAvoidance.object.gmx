@@ -2604,6 +2604,27 @@ switch(attack){ //Main attack loop
                 
                 ///Trace the trajectories of the bullets and activate them accordingly
             }  
+            
+            /*
+            for(var i=0;i&lt;10;i++){
+                var ca=random(360);
+                var cr=random(256);
+                var cx=400+cr*dcos(ca);
+                var cy=304-cr*dsin(ca);
+                
+                var obj=instance_create_ext(cx,cy,objPBullet,0*random_range(1,6),random(360),1,irandom_range(2,4));
+                //obj.gravity=random_range(0.05,0.1);
+                //obj.gravity_direction=obj.direction+180+random_range(45,135);
+                obj.image_index=0;
+                obj.destroyOutside=true;
+                //obj.speed*=5;
+                //obj.curveSpeed*=5;
+                //obj.gravity*=25;
+                obj.image_xscale=1.2;
+                obj.image_yscale=1.2;
+            
+            }*/
+            
             with(objPBullet){
                 if(tag&gt;=2&amp;&amp;tag&lt;=4){
                     killer=false;
