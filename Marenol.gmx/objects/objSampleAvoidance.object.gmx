@@ -199,6 +199,8 @@ view_yview[0]+=cameraSpeed;
 if(!instance_exists(objPlayer)||finish) {
     if(attack==marenolAvoidanceAttacks.FINAL_FALL){
         with(objPBullet) gravity=0;
+    }else if(attack==marenolAvoidanceAttacks.DECAY){
+        with(oRdrChangeVariableCommand) instance_destroy();
     }
     exit;
 }
@@ -2767,6 +2769,31 @@ switch(attack){ //Main attack loop
             room_goto(rPAvoidance7);
         }
         if(ct==2){
+        
+            //Create figure infinity at the center
+            var a=48;
+            for(var i=0;i&lt;5;i++){
+                for(var l=0;l&lt;2;++l){
+                var angle=(i+l/2)*360/16;
+                for(var k=-1;k&lt;2;k+=2){
+                    for(var j=-1;j&lt;2;j+=2){
+                        var figureInfX=k*a*dcos(angle)/(1+dsin(angle)*dsin(angle));
+                        var figureInfY=j*a*dcos(angle)*dsin(angle)/(1+dsin(angle)*dsin(angle));
+                        with(instance_create(room_width/2+figureInfX,room_height/2+figureInfY,objPBullet)){
+                                tag=9999;
+                                killer=false;
+                                image_index=8;
+                                instance_fade_out(id,50);
+                                image_xscale=0.75;
+                                image_yscale=0.75;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        
+        
             vignette=instance_create(0,0,objPShaderRectangle);
             vignette.shader=shBloodVignette;
             vignette.image_alpha=1;
@@ -3097,6 +3124,9 @@ switch(attack){ //Main attack loop
     }
     case marenolAvoidanceAttacks.THREADS:
     {   
+    
+        //Border effect
+        
         if(ct==1){
             with(objPShaderRectangle) instance_destroy();
             with(objBlock) {
@@ -3345,8 +3375,9 @@ switch(attack){ //Main attack loop
     case marenolAvoidanceAttacks.NOOSE:
     {
         if(ct==1){
+            with(objPBorder) instance_destroy();
             with(objPShaderEffect) //fade out the shader effect
-            instance_change_variable(id,"intensity",0,floor(BT),tween_linear);
+                instance_change_variable(id,"intensity",0,floor(BT),tween_linear);
             var cr=200;
             with(objP3DCircle) {
                 cr=image_xscale;

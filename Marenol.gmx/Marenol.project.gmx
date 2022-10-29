@@ -120,6 +120,7 @@
       <sprite>sprites\sprBossItem</sprite>
     </sprites>
     <sprites name="Prince">
+      <sprite>sprites\sprBorder</sprite>
       <sprite>sprites\sprPStatic</sprite>
     </sprites>
     <sprites name="boss sprites">
@@ -141,6 +142,7 @@
       <sprite>sprites\sprGiygas</sprite>
       <sprite>sprites\sprTrain</sprite>
       <sprite>sprites\sprBubble</sprite>
+      <sprite>sprites\sprSpotlight</sprite>
       <sprite>sprites\sprSquareSolid</sprite>
       <sprite>sprites\sprD4</sprite>
     </sprites>
@@ -403,6 +405,7 @@
       <object>objects\objPBlockDrawClear</object>
       <object>objects\objPBlockDrawClearPart</object>
       <object>objects\objPEyeFadeMarker</object>
+      <object>objects\objPBorder</object>
       <object>objects\objPBossMarker</object>
       <objects name="Marenol">
         <object>objects\objSampleAvoidance</object>
