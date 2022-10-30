@@ -1508,6 +1508,23 @@ switch(attack){ //Main attack loop
                 x+=random_range(-0.5,0.5);
             }
         }
+        if(ct mod floor(2*BT)==1||ct mod floor(2*BT)==floor(0.5*BT)){
+            with(objPBullet){
+                var aa=random(360);
+                for(var i=0;i&lt;3;i++){
+                    var obj=instance_create(x,y,objPCosmetic);
+                    obj.sprite_index=sprite_index;
+                    obj.image_index=image_index;
+                    obj.image_alpha=0.5;
+                    obj.image_xscale=0.2;
+                    obj.image_yscale=1;
+                    obj.speed=2;
+                    obj.direction=360*i/3+aa;
+                    obj.image_angle=obj.direction;
+                    instance_fade_out(obj,20);
+                }
+            }   
+        }
         if(ct mod floor(4*BT)==floor(2*BT)){
             with(oRdrChangeVariableArrayFullCommand) instance_destroy();
             with(objAvoidanceFlower){
@@ -1525,9 +1542,9 @@ switch(attack){ //Main attack loop
                 intensity[0]=0.06;
                 intensity[2]=0.03;
                 
-                aa[0]=0;
+                aa[0]=0.01;
                 aa[1]=intensity[1];
-                aa[2]=0;
+                aa[2]=0.004;
                 instance_change_variable_array_full(id,"intensity",aa,floor(2*BT),tween_sine_out);
                 //instance_change_variable_array(id,"intensity",0,0.01,floor(2*BT),tween_sine_out);
                 
@@ -1547,9 +1564,9 @@ switch(attack){ //Main attack loop
                 intensity[0]=0.02;
                 intensity[2]=0.04;
                 
-                aa[0]=0;
+                aa[0]=0.01;
                 aa[1]=intensity[1];
-                aa[2]=0;
+                aa[2]=0.004;
                 instance_change_variable_array_full(id,"intensity",aa,floor(BT),tween_sine_out);
                 //instance_change_variable_array(id,"intensity",0,0.01,floor(2*BT),tween_sine_out);
                 
@@ -1630,18 +1647,39 @@ switch(attack){ //Main attack loop
                 depth=-depth;
                 instance_fade_out(id,floor(0.5*BT));
             }
-            for(var i=0;i&lt;20;i++){
+            for(var i=0;i&lt;5;i++){ //foreground bullets
+            
+                for(var j=0;j&lt;2;j++){
+                    for(var k=0;k&lt;2;k++){
+                        var cx=400*j+random(400);
+                        var cy=304*k+random(304);
+                        
+                        var cscale=random_range(0.5,1.5);
+                        var obj=instance_create_ext(cx,cy,objPBullet,2*cscale,-90,cscale,0);
+                        obj.killer=false;
+                        instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                        instance_change_variable(obj,"speed",0,floor(2*BT),tween_linear);
+                        obj.sprite_index=sprPCircleInverted;
+                        obj.image_index=2;
+                        with(obj) if(place_meeting(x,y,objBlock)) y-=48;
+                    }
+                }
+            }
+            
+            for(var i=0;i&lt;20;i++){ //background bullets
                 var cx=random(800);
                 var cy=random(608);
                 var cscale=random_range(0.5,1.5);
-                var obj=instance_create_ext(cx,cy,objPBullet,2*cscale,-90,cscale,0);
+                var obj=instance_create_ext(cx,cy,objPCosmetic,cscale*0.75,-90,cscale,0);
                 obj.killer=false;
-                instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                obj.image_alpha=0;
+                //instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
                 instance_change_variable(obj,"speed",0,floor(2*BT),tween_linear);
                 obj.sprite_index=sprPCircleInverted;
                 obj.image_index=2;
-                with(obj) if(place_meeting(x,y,objBlock)) y-=48;
+                //with(obj) if(place_meeting(x,y,objBlock)) y-=48;
             }
+            
             with(instance_create(0,0,objPShaderEffect)){
                 shader=shWave;
                 intensity=0.1;
@@ -1672,7 +1710,7 @@ switch(attack){ //Main attack loop
                 shader=shStatic;
                 intensity=0.012;
             }
-            with(objPBullet){
+            with(objPBullet){ //eyes
                 if(tag==0){
                     killer=true;
                     image_alpha=1.0;
@@ -1694,6 +1732,29 @@ switch(attack){ //Main attack loop
                     
                 }
             }
+            
+            with(objPCosmetic){ //cosmetic
+                if(tag==0){
+                    image_alpha=0.15;
+                    speed=0;
+                    for(var i=-6;i&lt;7;i++){
+                        for(var j=-1;j&lt;2;j+=2){
+                            var cx=x+8*image_xscale*i;
+                            var obj=instance_create_ext(cx,y,objPCosmetic,speed,direction,image_xscale*0.5,1);
+                            obj.image_alpha=0.15;
+                            var cy=y+16*image_xscale*j*dcos(15*i);
+                            obj.sprite_index=sprPCircleInverted;
+                            obj.image_index=2;
+                            instance_move_to(obj,cx,cy,floor(2*BT),tween_elastic_out);
+                        }
+                    }
+                    instance_scale(id,image_xscale,floor(2*BT),tween_elastic_out);
+                    sprite_index=sprPCircle;
+                    image_index=0;
+                    
+                }
+            }
+            
         }
         if(ct==floor(3*BT)){
             with(objPBullet){
@@ -1707,6 +1768,18 @@ switch(attack){ //Main attack loop
                     instance_fade_out(id,floor(0.5*BT));
                 }else if(tag==-999){
                     instance_change_alpha(id,0,floor(BT),tween_linear);
+                }
+            }
+            
+            with(objPCosmetic){
+                if(tag==1){
+                    killer=false;   
+                    instance_move_to(id,xstart,ystart,floor(BT),tween_linear);
+                    instance_fade_out(id,floor(10*BT));
+                }
+                else if(tag==0){
+                    killer=false; 
+                    instance_fade_out(id,floor(5*BT));
                 }
             }
             with(objPShaderEffect){
@@ -1738,18 +1811,37 @@ switch(attack){ //Main attack loop
                 else if(tag==1) instance_destroy();
             }
             */
-            for(var i=0;i&lt;20;i++){
+            for(var i=0;i&lt;5;i++){ //eyes
+                for(var j=0;j&lt;2;j++){
+                    for(var k=0;k&lt;2;k++){
+                        var cx=400*j+random(400);
+                        var cy=304*k+random(304);
+                        var cscale=random_range(0.5,1.5);
+                        var obj=instance_create_ext(cx,cy,objPBullet,2*cscale,choose(0,180),cscale,0);
+                        obj.killer=false;
+                        instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                        instance_change_variable(obj,"speed",0,floor(2*BT),tween_linear);
+                        obj.sprite_index=sprPCircleInverted;
+                        obj.image_index=2;
+                        with(obj) if(place_meeting(x,y,objBlock)) y-=48;
+                    }
+                }
+            }
+            
+            for(var i=0;i&lt;20;i++){ //cosmetic
                 var cx=random(800);
                 var cy=random(608);
                 var cscale=random_range(0.5,1.5);
-                var obj=instance_create_ext(cx,cy,objPBullet,2*cscale,choose(0,180),cscale,0);
+                var obj=instance_create_ext(cx,cy,objPCosmetic,cscale*0.75,choose(0,180),cscale,0);
                 obj.killer=false;
-                instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                obj.image_alpha=0;
+                //instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
                 instance_change_variable(obj,"speed",0,floor(2*BT),tween_linear);
                 obj.sprite_index=sprPCircleInverted;
                 obj.image_index=2;
-                with(obj) if(place_meeting(x,y,objBlock)) y-=48;
+                //with(obj) if(place_meeting(x,y,objBlock)) y-=48;
             }
+            
             with(instance_create(0,0,objPShaderEffect)){
                 shader=shWave;
                 intensity=0.1;
@@ -1802,6 +1894,28 @@ switch(attack){ //Main attack loop
                     
                 }
             }
+            with(objPCosmetic){
+                if(tag==0){
+                    killer=true;
+                    image_alpha=0.15;
+                    speed=0;
+                    for(var i=-6;i&lt;7;i++){
+                        for(var j=-1;j&lt;2;j+=2){
+                            var cx=x+16*image_xscale*j*dcos(15*i);
+                            var cy=y+8*image_xscale*i;
+                            var obj=instance_create_ext(x,cy,objPCosmetic,speed,direction,image_xscale*0.5,1);
+                            obj.image_alpha=0.15;
+                            obj.sprite_index=sprPCircleInverted;
+                            obj.image_index=2;
+                            instance_move_to(obj,cx,cy,floor(2*BT),tween_elastic_out);
+                        }
+                    }
+                    instance_scale(id,image_xscale,floor(2*BT),tween_elastic_out);
+                    sprite_index=sprPCircle;
+                    image_index=0;
+                    
+                }
+            }
         }
         if(ct==floor(7*BT)){
             with(objPBullet){
@@ -1813,6 +1927,19 @@ switch(attack){ //Main attack loop
                 else if(tag==0){
                     killer=false; 
                     instance_fade_out(id,floor(0.5*BT));
+                }else if(tag==-999){
+                    instance_change_alpha(id,0,floor(BT),tween_linear);
+                }
+            }
+            with(objPCosmetic){
+                if(tag==1){
+                    killer=false;   
+                    instance_move_to(id,xstart,ystart,floor(BT),tween_linear);
+                    instance_fade_out(id,floor(10*BT));
+                }
+                else if(tag==0){
+                    killer=false; 
+                    instance_fade_out(id,floor(5*BT));
                 }else if(tag==-999){
                     instance_change_alpha(id,0,floor(BT),tween_linear);
                 }
@@ -1834,13 +1961,19 @@ switch(attack){ //Main attack loop
                 instance_destroy();
             }
             with(objPBullet) if(tag==-999) instance_destroy();
-            for(var i=0;i&lt;20;i++){
+            for(var i=0;i&lt;6;i++){ //bullets
                 var cx=400;
                 var cy=304;
                 var cr=random_range(32,400);
+                if(i==5){
+                    cr=400;
+                }
                 var cscale=cr/300;
                 var obj=instance_create_ext(cx,cy,objP3DCircle,0,0,cr,0);
-                
+                obj.numCherries=4;
+                if(i==5){
+                    obj.numCherries=6;
+                }
                 obj.killer=false;
                 obj.dt=choose(-1,1)*0.0015*cscale;
                 obj.t=random(1);
@@ -1859,6 +1992,37 @@ switch(attack){ //Main attack loop
                     }
                 }
                 instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                instance_change_variable(obj,"dt",0,floor(2*BT),tween_linear);
+            }
+            
+            for(var i=0;i&lt;5;i++){ //cosmetic
+                var cx=400;
+                var cy=304;
+                var cr=random_range(32,400);
+                var cscale=cr/300;
+                var obj=instance_create_ext(cx,cy,objP3DCircle,0,0,cr,0);
+                obj.numCherries=4;
+                obj.bulletID=objP3DBulletCosmetic
+                obj.killer=false;
+                obj.dt=choose(-1,1)*0.0015*cscale;
+                obj.t=random(1);
+                obj.z=-200;
+                obj.phaseSpeed=0;
+                obj.baseScale=cscale;
+                obj.rotationSpeed=0;
+                obj.image_alpha=0;
+                with(obj){
+                    event_perform(ev_step,ev_step_normal);
+                    for(var j=0;j&lt;numCherries;j++){
+                        cherries[j].sprite_index=sprPCircleInverted;
+                        cherries[j].image_index=2;
+                        with(cherries[j]){
+                            if(place_meeting(x,y,objPEyeFadeMarker)) instance_destroy();
+                        }
+                    }
+                }
+                obj.image_alpha=0;
+                //instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
                 instance_change_variable(obj,"dt",0,floor(2*BT),tween_linear);
             }
             with(instance_create(0,0,objPShaderEffect)){
@@ -1893,7 +2057,9 @@ switch(attack){ //Main attack loop
                 intensity=0.012;
             }
             with(objP3DCircle){
-                image_alpha=1;
+                if(bulletID==objP3DBullet)
+                    image_alpha=1;
+                else image_alpha=0.15;
                 dt=0;
             }
             with(objPBullet){
@@ -1923,6 +2089,34 @@ switch(attack){ //Main attack loop
                     
                 }
             }
+            with(objPCosmetic){
+                if(tag==0){
+                    var ca=point_direction(400,304,x,y);
+                    killer=true;
+                    image_alpha=0.15;
+                    speed=0;
+                    for(var i=-6;i&lt;7;i++){
+                        for(var j=-1;j&lt;2;j+=2){
+                            var cy=16*image_xscale*j*dcos(15*i);
+                            var cx=8*image_xscale*i;
+                            var cy0=0;
+                            var cxx=x+cx*dcos(ca)-cy*dsin(ca);
+                            var cyy=y-cx*dsin(ca)-cy*dcos(ca);
+                            var cxx0=x+cx*dcos(ca);
+                            var cyy0=y-cx*dsin(ca);
+                            var obj=instance_create_ext(cxx0,cyy0,objPCosmetic,speed,direction,image_xscale*0.5,1);
+                            obj.image_alpha=0.15;
+                            obj.sprite_index=sprPCircleInverted;
+                            obj.image_index=2;
+                            instance_move_to(obj,cxx,cyy,floor(2*BT),tween_elastic_out);
+                        }
+                    }
+                    instance_scale(id,image_xscale,floor(2*BT),tween_elastic_out);
+                    sprite_index=sprPCircle;
+                    image_index=0;
+                    
+                }
+            }
         }
         if(ct==floor(11*BT)){
             with(objPBullet){
@@ -1936,7 +2130,19 @@ switch(attack){ //Main attack loop
             }
             with(objP3DCircle){
                 killer=false;
-                instance_fade_out(id,floor(0.5*BT));
+                if(bulletID==objP3DBullet)
+                    instance_fade_out(id,floor(0.5*BT));
+                else
+                    instance_fade_out(id,floor(5*BT));
+            }
+            with(objPCosmetic){
+                if(tag==1){
+                    killer=false;   
+                    instance_move_to(id,xstart,ystart,floor(BT),tween_linear);
+                    instance_fade_out(id,floor(10*BT));
+                }else if(tag==-999){
+                    instance_change_alpha(id,0,floor(BT),tween_linear);
+                }
             }
             with(objPShaderEffect){
                 instance_change_variable(id,"intensity",0,floor(BT),tween_linear);
@@ -1962,13 +2168,22 @@ switch(attack){ //Main attack loop
                 obj.image_index=2;
             }
             
-            for(var i=0;i&lt;20;i++){
+            for(var i=0;i&lt;6;i++){ //bullets
                 var cx=400;
                 var cy=304;
                 var cr=random_range(128,500);
+                if(i==5){
+                    cr=400;
+                }
                 var cscale=1-cr/600;
-                var obj=instance_create_ext(cx,cy,objP3DCircle,0,0,cr,0);
                 
+                var obj=instance_create_ext(cx,cy,objP3DCircle,0,0,cr,0);
+                    
+                    
+                obj.numCherries=4;
+                if(i==5){
+                    obj.numCherries=6;
+                }
                 obj.killer=false;
                 obj.dt=0;
                 obj.t=random(1);
@@ -1976,6 +2191,7 @@ switch(attack){ //Main attack loop
                 obj.phaseSpeed=0;
                 obj.baseScale=cscale;
                 obj.rotationSpeed=0;
+                
                 with(obj){
                     event_perform(ev_step,ev_step_normal);
                     for(var j=0;j&lt;numCherries;j++){
@@ -1988,6 +2204,39 @@ switch(attack){ //Main attack loop
                     
                 }
                 instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
+                instance_scale(obj,0.9*obj.image_xscale,floor(2*BT),tween_linear);
+            }
+            
+            
+            for(var i=0;i&lt;5;i++){ //cosmetic
+                var cx=400;
+                var cy=304;
+                var cr=random_range(128,500);
+                var cscale=1-cr/600;
+                var obj=instance_create_ext(cx,cy,objP3DCircle,0,0,cr,0);
+                obj.numCherries=4;
+                obj.killer=false;
+                obj.dt=0;
+                obj.t=random(1);
+                obj.z=-200;
+                obj.phaseSpeed=0;
+                obj.baseScale=cscale;
+                obj.rotationSpeed=0;
+                obj.bulletID=objP3DBulletCosmetic;
+                obj.image_alpha=0;
+                with(obj){
+                    event_perform(ev_step,ev_step_normal);
+                    for(var j=0;j&lt;numCherries;j++){
+                        cherries[j].sprite_index=sprPCircleInverted;
+                        cherries[j].image_index=2;
+                        with(cherries[j]){
+                            if(place_meeting(x,y,objPEyeFadeMarker)) instance_destroy();
+                        }
+                    }
+                    
+                }
+                obj.image_alpha=0;
+                //instance_change_alpha(obj,0,floor(2*BT)-3,tween_sine_out);
                 instance_scale(obj,0.9*obj.image_xscale,floor(2*BT),tween_linear);
             }
             with(instance_create(0,0,objPShaderEffect)){
@@ -2023,7 +2272,9 @@ switch(attack){ //Main attack loop
                 intensity=0.012;
             }
             with(objP3DCircle){
-                image_alpha=1;
+                if(bulletID==objP3DBullet)
+                    image_alpha=1;
+                else image_alpha=0.15;
                 dt=0;
                 if(instance_exists(Internal_ScaleChangeCommand))
                 with(Internal_ScaleChangeCommand) instance_destroy();
@@ -2083,11 +2334,36 @@ switch(attack){ //Main attack loop
                     sprite_index=sprPCircle;
                     image_index=0;
                     
-                }else if(tag==2){
-                    //instance_change_variable(id,"image_xscale",4*image_xscale,floor(2*BT),tween_linear);
+                }
+                
+            }
+            with(objPCosmetic){
+                if(tag==0){
+                    var ca=point_direction(400,304,x,y)+90;
+                    image_alpha=0.15;
+                    speed=0;
+                    for(var i=-6;i&lt;7;i++){
+                        for(var j=-1;j&lt;2;j+=2){
+                            var cy=16*image_xscale*j*dcos(15*i);
+                            var cx=8*image_xscale*i;
+                            var cy0=0;
+                            var cxx=x+cx*dcos(ca)-cy*dsin(ca);
+                            var cyy=y-cx*dsin(ca)-cy*dcos(ca);
+                            var cxx0=x+cx*dcos(ca);
+                            var cyy0=y-cx*dsin(ca);
+                            var obj=instance_create_ext(cxx0,cyy0,objPCosmetic,speed,direction,image_xscale*0.5,1);
+                            obj.sprite_index=sprPCircleInverted;
+                            obj.image_index=2;
+                            obj.image_alpha=0.15;
+                            instance_move_to(obj,cxx,cyy,floor(2*BT),tween_elastic_out);
+                        }
+                    }
+                    instance_scale(id,image_xscale,floor(2*BT),tween_elastic_out);
+                    sprite_index=sprPCircle;
+                    image_index=0;
+                    
                 }
             }
-        
         }
         if(ct==floor(15*BT)){
             with(objPBullet){
@@ -2103,9 +2379,24 @@ switch(attack){ //Main attack loop
                     instance_change_alpha(id,0,floor(BT),tween_linear);
                 }
             }
+            with(objPCosmetic){
+                if(tag==3){
+                    killer=false;
+                    instance_fade_out(id,floor(10*BT));
+                }
+                else if(tag==1){
+                    killer=false;   
+                    instance_move_to(id,xstart,ystart,floor(BT),tween_linear);
+                    instance_fade_out(id,floor(10*BT));
+                }
+            }
             with(objP3DCircle){
                 killer=false;
-                instance_fade_out(id,floor(0.5*BT));
+                if(bulletID==objP3DBullet){
+                    instance_fade_out(id,floor(0.5*BT));
+                }else{
+                    instance_fade_out(id,floor(5*BT));
+                }
             }
             with(objPShaderEffect){
                 instance_change_variable(id,"intensity",0,floor(BT),tween_linear);
@@ -2114,12 +2405,14 @@ switch(attack){ //Main attack loop
                 instance_change_alpha(id,0,floor(BT),tween_linear);
             }
         }
-        if(ct mod floor(BT/4)==1&amp;&amp;ct&lt;floor(15*BT)-1){
-            var obj=instance_create_ext(random(800),640,objPBullet,random_range(4,5),90+random_range(-10,10),0.5,2);
+        if(ct mod floor(BT/1.5)==1&amp;&amp;ct&lt;floor(15*BT)-1){ //bullets from the bottom
+            
+            var obj=instance_create_ext((ct*333) mod 800,640,objPBullet,random_range(4,5),90+random_range(-10,10),0.5,2);
             obj.image_xscale*=3;
             obj.image_angle=obj.direction;
             obj.destroyOutside=true;
             obj.image_index=0;
+            
         }
         break;
     }
@@ -2789,6 +3082,15 @@ switch(attack){ //Main attack loop
                 y=objP3DCircle.y;
                 repeat(30)
                     instance_create(x,y,objBlood);
+            }
+        }
+        if(ct==floor(15.5*BT)){
+            with(objPlayer){
+                repeat(20){
+                    var obj = instance_create_ext(x,y,objPCosmetic,random(5),random(360),1,-1);
+                    obj.image_index=0;
+                    instance_shrink_out(obj,30);
+                }
             }
         }
         with(objPBullet){

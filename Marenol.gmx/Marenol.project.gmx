@@ -427,6 +427,7 @@
       <object>objects\objPrince_BrokenTile</object>
       <object>objects\objPrince_ElishaNoise</object>
       <object>objects\objP3DBullet</object>
+      <object>objects\objP3DBulletCosmetic</object>
       <object>objects\objP3DCircle</object>
       <object>objects\objPrince_FadeIn</object>
       <object>objects\objPShaderEffect</object>
