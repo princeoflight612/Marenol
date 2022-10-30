@@ -1508,22 +1508,31 @@ switch(attack){ //Main attack loop
                 x+=random_range(-0.5,0.5);
             }
         }
-        if(ct mod floor(2*BT)==1||ct mod floor(2*BT)==floor(0.5*BT)){
+        if(ct mod floor(2*BT)==1||ct mod floor(2*BT)==floor(0.5*BT)){ //extra effect
             with(objPBullet){
                 var aa=random(360);
-                for(var i=0;i&lt;3;i++){
-                    var obj=instance_create(x,y,objPCosmetic);
-                    obj.sprite_index=sprite_index;
-                    obj.image_index=image_index;
-                    obj.image_alpha=0.5;
-                    obj.image_xscale=0.2;
-                    obj.image_yscale=1;
-                    obj.speed=2;
-                    obj.direction=360*i/3+aa;
-                    obj.image_angle=obj.direction;
-                    instance_fade_out(obj,20);
+                if(irandom(1)){
+                    for(var i=0;i&lt;3;i++){
+                        var obj=instance_create(x,y,objPCosmetic);
+                        obj.sprite_index=sprite_index;
+                        obj.image_index=image_index;
+                        obj.image_alpha=0.5;
+                        obj.image_xscale=0.2;
+                        obj.image_yscale=1;
+                        obj.speed=2;
+                        obj.direction=360*i/3+aa;
+                        obj.image_angle=obj.direction;
+                        //instance_fade_out(obj,20);
+                    }
                 }
             }   
+        }
+        
+        with(objPCosmetic){
+            if(tag==0){
+                image_alpha-=0.05;
+                if(image_alpha&lt;=0.05) instance_destroy();
+            }
         }
         if(ct mod floor(4*BT)==floor(2*BT)){
             with(oRdrChangeVariableArrayFullCommand) instance_destroy();
@@ -1626,6 +1635,14 @@ switch(attack){ //Main attack loop
             }
             global.noDeath=true;
         }
+        
+        
+        with(objPCosmetic){
+            if(tag==0){
+                image_alpha-=0.05;
+                if(image_alpha&lt;=0.05) instance_destroy();
+            }
+        }
         break;
     }
     case marenolAvoidanceAttacks.EYES:
@@ -1647,11 +1664,11 @@ switch(attack){ //Main attack loop
                 depth=-depth;
                 instance_fade_out(id,floor(0.5*BT));
             }
-            for(var i=0;i&lt;5;i++){ //foreground bullets
-            
-                for(var j=0;j&lt;2;j++){
+            for(var i=0;i&lt;3;i++){ //foreground bullets
+                for(var j=0;j&lt;3;j++){
                     for(var k=0;k&lt;2;k++){
-                        var cx=400*j+random(400);
+                        //var cx=400*j+random(400);
+                        var cx=800/3*(random(1)+j);
                         var cy=304*k+random(304);
                         
                         var cscale=random_range(0.5,1.5);
@@ -1735,13 +1752,13 @@ switch(attack){ //Main attack loop
             
             with(objPCosmetic){ //cosmetic
                 if(tag==0){
-                    image_alpha=0.15;
+                    image_alpha=random_range(0.10,0.20);
                     speed=0;
                     for(var i=-6;i&lt;7;i++){
                         for(var j=-1;j&lt;2;j+=2){
                             var cx=x+8*image_xscale*i;
                             var obj=instance_create_ext(cx,y,objPCosmetic,speed,direction,image_xscale*0.5,1);
-                            obj.image_alpha=0.15;
+                            obj.image_alpha=image_alpha;
                             var cy=y+16*image_xscale*j*dcos(15*i);
                             obj.sprite_index=sprPCircleInverted;
                             obj.image_index=2;
@@ -1897,14 +1914,14 @@ switch(attack){ //Main attack loop
             with(objPCosmetic){
                 if(tag==0){
                     killer=true;
-                    image_alpha=0.15;
+                    image_alpha=random_range(0.10,0.20);
                     speed=0;
                     for(var i=-6;i&lt;7;i++){
                         for(var j=-1;j&lt;2;j+=2){
                             var cx=x+16*image_xscale*j*dcos(15*i);
                             var cy=y+8*image_xscale*i;
                             var obj=instance_create_ext(x,cy,objPCosmetic,speed,direction,image_xscale*0.5,1);
-                            obj.image_alpha=0.15;
+                            obj.image_alpha=image_alpha;
                             obj.sprite_index=sprPCircleInverted;
                             obj.image_index=2;
                             instance_move_to(obj,cx,cy,floor(2*BT),tween_elastic_out);
