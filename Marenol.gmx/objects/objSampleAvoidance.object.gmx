@@ -1545,7 +1545,7 @@ switch(attack){ //Main attack loop
         if(ct mod floor(4*BT)==floor(1.25*BT)&amp;&amp;ct&gt;floor(4*BT)){ //Extra distortion
             with(objPShaderChain){
                 intensity[0]=0.02;
-                intensity[2]=0.06;
+                intensity[2]=0.04;
                 
                 aa[0]=0;
                 aa[1]=intensity[1];
@@ -1620,6 +1620,10 @@ switch(attack){ //Main attack loop
         
         }
         if(ct==2){ //horizontal indicators
+                
+            //disable infjump from the previous attack
+            global.infJump=false;
+            
             with(instance_create(0,0,objPBgScreen)){
                 image_blend=c_black;
                 image_alpha=1;
