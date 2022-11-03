@@ -684,7 +684,9 @@ switch(attack){ //Main attack loop
             
             var obj=instance_create(-200,objPlayer.y,objWater2);
             obj.image_xscale=1000/32;
-            obj.image_yscale=600/32;
+            //obj.image_yscale=600/32;
+            
+            obj.image_yscale=(640-(objPlayer.y-view_yview[0]))/32; //fix the water displaying incorrectly when off-screen
             obj.image_alpha=0;
             instance_change_alpha(obj,1,50,tween_linear);
             repeat(18){
@@ -1035,10 +1037,10 @@ switch(attack){ //Main attack loop
             }
             side=esign(objPlayer.x-400,1);
             with(objBlock){
-                if(x&gt;=0&amp;&amp;x&lt;800){
+                //if(x&gt;=0&amp;&amp;x&lt;800){
                     instance_create(x+16,y+16,objPrince_BrokenTile);
                     instance_destroy();
-                }
+                //}
             }
             tile_layer_hide(1000000);
             
@@ -1468,7 +1470,7 @@ switch(attack){ //Main attack loop
                 sprite_index=sprPCircle;
                 image_index=8;
                 gravity_direction=point_direction(400,304,x,y);
-                gravity=0.0005*point_distance(400,304,x,y);
+                gravity=0.0005*max(point_distance(400,304,x,y),32); //should hopefully prevent lingering white bullets
                 instance_scale(id,1-point_distance(400,304,x,y)/800,30,tween_sine_out);
             }
             with(objWater2) {
@@ -3914,7 +3916,7 @@ switch(attack){ //Main attack loop
             with(objPPendulum) instance_destroy();   
             with(objPBullet) gravity=0.35;
             with(objPlayer){
-                //vspeed=-0.5;
+                vspeed=-0.5;
                 djump=false;
             }
             global.infJump=false;
