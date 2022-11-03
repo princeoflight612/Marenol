@@ -78,7 +78,7 @@ for (var i = 0; i &lt; 3; i++)
             difficulty[i] = ds_map_find_value(saveMap,"difficulty");
             if (is_undefined(difficulty[i]))
                 difficulty[i] = 0;
-            
+            else if (difficulty[i]&gt;0) difficulty[i]=0;
             for (var j = 0; j &lt; 8; j++)
             {
                 boss[j,i] = ds_map_find_value(saveMap,"saveBossItem["+string(j)+"]");
@@ -204,13 +204,13 @@ else
                 audio_play_sound(global.menuSound,0,false);
                 select2 -= 1;
                 if ((select2 == -1 &amp;&amp; !exists[select]) || (select2 &lt; -1))
-                    select2 = 3;
+                    select2 = 1;
             }
             else if (scrButtonCheckPressed(global.menuRightButton))
             {
                 audio_play_sound(global.menuSound,0,false);
                 select2 += 1;
-                if (select2 &gt; 3)
+                if (select2 &gt; 1)
                 {
                     if (exists[select])
                         select2 = -1;
@@ -331,7 +331,7 @@ else
         if (!warnText)
         {
             if(select2==-1) draw_text(x + i*xSeperation + 65, y+49,"&lt; Load game &gt;");
-            else if(select2==0) draw_text(x + i*xSeperation + 65, y+49,"&lt; Medium &gt;");
+            else if(select2==0) draw_text(x + i*xSeperation + 65, y+49,"&lt; Nightmare &gt;");
             else if(select2==1) draw_text(x + i*xSeperation + 65, y+49,"&lt; Hard &gt;");
             else if(select2==2) draw_text(x + i*xSeperation + 65, y+49,"&lt; Very Hard &gt;");
             else if(select2==3) draw_text(x + i*xSeperation + 65, y+49,"&lt; Impossible &gt;");
@@ -348,7 +348,7 @@ else
     {        
         if ((!difSelect) || (difSelect &amp;&amp; i != select))
         {
-            if(difficulty[i]==0){draw_text(x+i*xSeperation+65,y+49,"Medium")}
+            if(difficulty[i]==0){draw_text(x+i*xSeperation+65,y+49,"Nightmare")}
             else if(difficulty[i]==1){draw_text(x+i*xSeperation+65,y+49,"Hard")}
             else if(difficulty[i]==2){draw_text(x+i*xSeperation+65,y+49,"Very Hard")}
             else if(difficulty[i]==3){draw_text(x+i*xSeperation+65,y+49,"Impossible")}

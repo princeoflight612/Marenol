@@ -32,6 +32,7 @@ if (loadFile)
         global.timeMicro = ds_map_find_value(saveMap,"timeMicro");
         
         global.difficulty = ds_map_find_value(saveMap,"difficulty");
+        global.difficulty = 0; // a hack to force set the difficulty to Bow since the bow effect is actually an important indicator
         global.saveRoom = ds_map_find_value(saveMap,"saveRoom");
         global.savePlayerX = ds_map_find_value(saveMap,"savePlayerX");
         global.savePlayerY = ds_map_find_value(saveMap,"savePlayerY");
