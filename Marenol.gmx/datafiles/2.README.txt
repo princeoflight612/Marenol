@@ -19,5 +19,5 @@ This is a single avoidance fangame. I tried to go for an atmospheric, horror sty
 
 HAVE FUN, AND HAPPY HALLOWEEN!
 
-v1.01 - Fixed a few bugs and changed the last attack so it should hopefully play better.
+v1.01 - Fixed a few bugs, tweaked some of the visuals and changed the last attack so it should hopefully play better.
 v1.00 - Initial release.

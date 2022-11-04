@@ -52,6 +52,7 @@
   </views>
   <instances>
     <instance objName="objDifficultyMenu" x="96" y="160" name="inst_8F356ECB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objPrince_ElishaNoise" x="48" y="32" name="inst_2A6F324F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bgPWhite" x="0" y="0" w="32" h="32" xo="0" yo="32" id="10002614" name="inst_51C1DBCB" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

@@ -317,7 +317,7 @@ else
     draw_set_halign(fa_left)
     draw_set_font(fDefault30);
     
-    draw_text(x+i*xSeperation+2,y,str[i]);
+    draw_text(x+i*xSeperation+10,y,str[i]);
     
     draw_set_font(fDefault12);
     
@@ -377,13 +377,14 @@ else
     
     if (i == select)
     {
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+5,y+310);
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+25,y+310);
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+45,y+310);
+        appleIndex=4;
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+5,y+310);
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+25,y+310);
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+45,y+310);
         draw_sprite(sprPlayerIdle,playerIndex,x+i*xSeperation+65,y+310);
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+85,y+310);
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+105,y+310);
-        draw_sprite(sprCherry,appleIndex,x+i*xSeperation+125,y+310);
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+85,y+310);
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+105,y+310);
+        draw_sprite(sprPCircleInverted,appleIndex,x+i*xSeperation+125,y+310);
     }
 }
 

@@ -3919,6 +3919,19 @@ switch(attack){ //Main attack loop
                 vspeed=-0.5;
                 djump=false;
             }
+            
+            with(objBow){
+                var obj=instance_create(x,y,objPCosmetic);
+                obj.depth=depth;
+                obj.vspeed=-0.5;
+                obj.sprite_index=sprite_index;
+                obj.image_index=image_index;
+                obj.tag=7;
+                obj.gravity=0.35;
+                obj.image_xscale=image_xscale;
+                instance_fade_out(obj,100);
+                instance_destroy();
+            }
             global.infJump=false;
         }
         if(ct&gt;floor(2*BT)){
@@ -3935,7 +3948,9 @@ switch(attack){ //Main attack loop
 
                 if(vspeed&gt;8) vspeed=8;
             }
-            
+            with(objPCosmetic){
+                if(vspeed&gt;7.5&amp;&amp;tag==7) vspeed=7.5;
+            }
         }
         if(ct==floor(8*BT)){ //shader effect
             with(instance_create(0,0,objPShaderEffect)){
@@ -4010,6 +4025,7 @@ switch(attack){ //Main attack loop
     {
         if(ct==1){
             with(objPlayer) instance_destroy();
+            global.gameClear=true;
             room_goto(rEnd);
         }
         break;
