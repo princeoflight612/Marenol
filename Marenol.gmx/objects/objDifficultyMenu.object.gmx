@@ -204,13 +204,13 @@ else
                 audio_play_sound(global.menuSound,0,false);
                 select2 -= 1;
                 if ((select2 == -1 &amp;&amp; !exists[select]) || (select2 &lt; -1))
-                    select2 = 1;
+                    select2 = 0;
             }
             else if (scrButtonCheckPressed(global.menuRightButton))
             {
                 audio_play_sound(global.menuSound,0,false);
                 select2 += 1;
-                if (select2 &gt; 1)
+                if (select2 &gt; 0)
                 {
                     if (exists[select])
                         select2 = -1;
