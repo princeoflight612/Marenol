@@ -1,0 +1,46 @@
+// 2023-03-03 18:46:07
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = sprSquareOrnament;
+uses_physics = false;
+
+#event create
+tile=tile_layer_find(1000000,x,y);
+tileXCoord=0;
+tileYCoord=0;
+tileWidth=0;
+tileHeight=0;
+tileBg=0;
+
+
+if(tile!=-1){
+    tileXOffset = x - tile_get_x(tile);
+    tileYOffset = y - tile_get_y(tile);
+    tileXCoord=tile_get_left(tile)+tileXOffset;
+    tileYCoord=tile_get_top(tile)+tileYOffset;
+    tileWidth=tile_get_width(tile)/2;
+    tileHeight=tile_get_height(tile)/2;
+    tileBg=tile_get_background(tile);
+}
+alarm[0]=50;
+gravity=0.3;
+vspeed=random_range(-2,-4)
+hspeed=random_range(-2,2);
+angleSpeed=random_range(-0.5,0.5);
+
+#event alarm0
+instance_destroy();
+
+#event step
+image_angle+=angleSpeed;
+image_alpha=alarm[0]/50;
+
+#event collision:objPlayer
+with(other) if(vspeed>2) vspeed-=0.6;
+
+#event draw
+if(tile!=-1){
+    var tileX=x-8*dcos(image_angle)-8*dsin(image_angle);
+    var tileY=y+8*dsin(image_angle)-8*dcos(image_angle);
+    draw_background_general(tileBg,tileXCoord,tileYCoord,tileWidth,tileHeight,tileX,tileY,1,1,image_angle,c_white,c_white,c_white,c_white,image_alpha);
+}

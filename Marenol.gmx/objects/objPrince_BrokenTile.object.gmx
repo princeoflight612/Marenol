@@ -31,9 +31,13 @@ tileYCoord=0;
 tileWidth=0;
 tileHeight=0;
 tileBg=0;
+
+
 if(tile!=-1){
-    tileXCoord=tile_get_left(tile);
-    tileYCoord=tile_get_top(tile);
+    tileXOffset = x - tile_get_x(tile);
+    tileYOffset = y - tile_get_y(tile);
+    tileXCoord=tile_get_left(tile)+tileXOffset;
+    tileYCoord=tile_get_top(tile)+tileYOffset;
     tileWidth=tile_get_width(tile)/2;
     tileHeight=tile_get_height(tile)/2;
     tileBg=tile_get_background(tile);
